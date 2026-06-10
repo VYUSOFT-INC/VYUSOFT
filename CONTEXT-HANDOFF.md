@@ -1,213 +1,173 @@
 # VyuSoft Marketing Site — Context Handoff
 
-> A self-contained briefing so any AI (or engineer) can pick up this project
-> cold. Written 2026-06-10. Save point: git commit `2b25388` ("Checkpoint:
-> marketing site through service-page rollout, bug sweep, and contact-form
-> polish"). This is the **first** commit of a freshly-initialised repo —
-> `git reset --hard 2b25388` returns to exactly this state.
+> Self-contained briefing so any AI/engineer can pick up cold. Updated
+> 2026-06-10. Earlier code save point: git commit `2b25388` (service-page
+> rollout + bug sweep). The site itself is in good shape; the open thread is
+> the **3D background**, which is currently PAUSED at the user's instruction.
 
 ---
 
-## 1. What this project is
+## 1. Project + stack
 
-A premium marketing website for **VyuSoft**, a software engineering studio.
-Built as a polished, editorial, non-templated brand site. Owner/user is
-**karthik@vyusoft.com** — non-engineer-facing in tone but technically precise;
-he drives the design direction and reviews every change.
+Premium marketing site for **VyuSoft**, a software engineering studio. Owner:
+**karthik@vyusoft.com** — drives design, validates everything **visually**.
 
-**Stack**
-- **Next.js 16.2.6** App Router + **Turbopack**, **React 19**, **TypeScript** (strict)
-- **Tailwind v4** (CSS-first `@theme` in `app/globals.css` — no `tailwind.config`)
-- **Framer Motion 12**, **Lenis** (smooth scroll), **lucide-react** icons, **geist** font
-- `next build` produces **71 static routes** (SSG via `generateStaticParams`)
-- Windows 11 / PowerShell environment. `git` runs via the Bash tool (git-bash).
-
-> ⚠️ **IMPORTANT — read `AGENTS.md`:** it warns that this Next.js version has
-> breaking changes vs training data, and to consult `node_modules/next/dist/docs/`
-> before writing framework code. `next lint` is removed in Next 16 — use
-> `npx eslint .` instead.
+- **Next.js 16.2.6** App Router + Turbopack, **React 19**, **TypeScript** (strict)
+- **Tailwind v4** (CSS-first `@theme` in `app/globals.css`)
+- **Framer Motion 12**, **Lenis** (global smooth scroll), **lucide-react**, **geist**
+- **three@0.184.0** (added for the 3D experiments)
+- 71 static routes. Windows / PowerShell. git via git-bash.
+- **`next lint` is removed in Next 16** → use `npx eslint .`. Type-check: `npx tsc --noEmit`.
+- Read `AGENTS.md`: this Next version differs from training data; check
+  `node_modules/next/dist/docs/` before framework work.
 
 ---
 
-## 2. How the user works (read before touching anything)
+## 2. How the user works (READ THIS FIRST — it's the whole game)
 
-These are hard-won preferences. Violating them has caused rework:
+- **Validation is 100% visual.** He cannot judge from descriptions, only from
+  what renders. Expected loop: you build → "completed, validate" → he looks →
+  reacts. Never ask him to imagine.
+- **Verify with your OWN eyes before showing him.** Shipping unseen burned
+  trust (a bloom bug rendered the whole scene white and I didn't catch it).
+- **He is frustrated about wasted tokens / endless iteration.** Do NOT grind
+  many speculative versions. If you're guessing, stop and get a concrete target.
+- Small targeted changes; no unrequested decisions; don't over-narrate.
+- **No AI-slop.** He has explicitly rejected: spinning particle balls, node
+  graphs, floating chrome blobs, wireframe/"sketchy" looks, plain white/grey
+  voids, and generic letterform/bar-chart shapes.
+- **References = taste only, never copy/replicate.** He's firm on this.
 
-- **Small, targeted changes.** Don't refactor or "improve" beyond what was asked.
-- **Don't make unrequested decisions.** When he says fix X, fix only X.
-- **No AI slop / cliché / fabricated metrics.** Copy must read human-written.
-- **No stock imagery.** Visuals are graphic/typographic/SVG-schematic only.
-- **No content repetition within a page** (e.g. don't list the same 6 items in
-  both a hero and the next section — this was an explicit correction).
-- **Each page should feel distinct**, not templated.
-- **Don't over-narrate.** He notices and dislikes verbose explanation.
-- **He often verifies manually** ("just say completed, I'll check myself").
-- **"Catch the nuances a human does when designing" / "think like a human, not
-  an AI"** is a recurring instruction — applies to spacing, hierarchy, polish.
-
-### The #1 recurring technical gotcha
-**Turbopack dev-cache lags one edit behind → blank/unstyled pages.** This is
-NOT a code bug. Fix: stop the dev server, delete `.next`, restart. `next build`
-(production) is always correct. When something "looks blank," suspect stale
-`.next` before suspecting the code.
-
-Also: **running a dev/preview server locks `.next` on Windows** (EPERM on
-`unlink` during `next build`). Stop the preview before building:
-`Get-Process node | Stop-Process -Force; Remove-Item .next -Recurse -Force; npx next build`.
-
----
-
-## 3. Architecture — single source of truth data layer
-
-All page content is data-driven from `lib/`. Dynamic routes read these maps.
-
-| File | Drives |
-|------|--------|
-| `lib/nav.ts` | **Master nav.** `servicesByGroup` (5 groups × 6 = 30 services), `industriesNav` (17), `productsNav` (4), `developmentNav` (7). Header, footer, mobile nav, and every `generateStaticParams` derive from here. |
-| `lib/services.ts` | `allServices`, `getServiceBySlug`, `Feature` type, per-slug `overrides` (accent, description, 6 features). Built by flat-mapping `servicesByGroup`. |
-| `lib/servicePages.ts` | **NEW this session.** Per-slug `{ headline, intro, services[6] }` for the redesigned service-detail pages. Sourced from the client's `services.md` content. `getServicePageContent(slug)`. |
-| `lib/serviceMeta.ts` | `stackByGroup` + `stackOverrides` → `stackForService()`; `relatedServices()` (other items in same group); `defaultOutcomes`. |
-| `lib/industries.ts` | `allIndustries`, `getIndustryBySlug`. Each industry has accent, description, 6 `solutions` (each maps to a real service slug), 6 `valueProps`. |
-| `lib/industryMeta.ts` | `regulatoryForIndustry()`, `operationalSignals`. |
-| `lib/products.ts` | `allProducts` (Vyudine, Mivyu, Vyuflo = `kind:"app"`, in development; VYU Startup Solutions = `kind:"engagement"`). `getProductBySlug`. |
-| `lib/development.ts` | `allDevelopmentPhases` (7 lifecycle phases), `getDevelopmentBySlug`. |
-| `lib/motion.ts` | Shared Framer variants/easings — `easeSlowBurn` (aliased `slowBurn`), `sheetSlide`, `stampReveal`, `stampReveal`, etc. |
-
-**Theming:** sections declare `data-theme="dark"` or `data-theme="light"`.
-`SiteHeader` runs an observer that reads the section under the header and
-cross-fades the logo (white logo on dark, dark logo on light). Dark sections
-are transparent over a fixed `PageBackdrop` (static dark radial gradient — the
-old generative shader was removed). Light sections are warm paper.
-
-**CSS class prefixes** (all live in `app/globals.css`, one big file):
-`svcd-*` service detail · `svc-*` services index · `prod-show-*` products index ·
-`ind-*` industries index · `method-*` development timeline · `legal-doc-*` legal ·
-`sd-*` ServicesDashboard · `inner-*` shared inner-page sections.
+### Recurring technical gotchas
+- **Turbopack dev cache lags one edit → blank/unstyled page.** Fix: stop dev
+  server, delete `.next`, restart. `next build` is always correct.
+- Dev server locks `.next` on Windows → stop it before `next build`.
+- **Claude preview MCP is broken this session** (starts server, then "Server
+  not found"). Don't rely on it. What works for visual checks:
+  - User's dev server at **http://localhost:3000**.
+  - **gstack /browse headless browser**: `B="$HOME/.claude/skills/gstack/browse/dist/browse"`
+    then `"$B" goto <url>`, `"$B" console --errors`, `"$B" screenshot --viewport /tmp/x.png`,
+    `"$B" js "window.scrollTo(0, document.documentElement.scrollHeight)"`. **Always Read
+    the PNGs to actually look.** This is how bugs were finally caught.
 
 ---
 
-## 4. Routes / pages
+## 3. Site state (shipped, solid — leave unless asked)
 
-- `/` home — sections in `app/_sections/home/` (Hero, ServicesDashboard,
-  ServicesIntro, Products, IndustriesGrid, ProcessSection, etc.). **User said
-  he's happy with the home hero — do not touch it.**
-- `/services` index (`app/services/_sections/Group*.tsx` — Bento/Console/Matrix/
-  Manifesto/Spotlight variants) and `/services/[slug]` (30 pages, **redesigned**).
-- `/industries` index + `/industries/[slug]` (17). **Still uses the older
-  template** (PageHero + IndustryBlueprint aside + MarqueeStrip + solutions list
-  + RegulatoryGrid + OutcomesStrip + valueProps + RelatedCards). Not yet redesigned.
-- `/products` index + `/products/[slug]` (4, bespoke).
-- `/development` index + `/development/[slug]` (7).
-- `/about`, `/contact`, `/research`, `/privacy`, `/terms` (static).
+Data-driven from `lib/`: `nav.ts` (master: 5 service groups × 6 = 30 services,
+17 industries, 4 products, 7 dev phases) → `services.ts`, `servicePages.ts`,
+`serviceMeta.ts`, `industries.ts`, `industryMeta.ts`, `products.ts`,
+`development.ts`, `motion.ts`.
 
----
+- All 30 `/services/[slug]` use the redesigned layout fed by `servicePages.ts`.
+- Industries, products, development, about, contact, legal (terms/privacy) done.
+- Theming: sections set `data-theme="dark"|"light"`; header logo cross-fades.
+  Dark sections are transparent over a fixed `PageBackdrop`
+  (`components/layout/PageBackdrop.tsx`) = **a static dark radial gradient,
+  intentionally a TEMPORARY placeholder** for the eventual 3D background.
+  Light sections = warm cream paper.
+- CSS prefixes: `svcd-*`, `svc-*`, `prod-show-*`, `ind-*`, `method-*`,
+  `legal-doc-*`, `sd-*`, `inner-*`.
+- Functional bug sweep done; ContactForm prefill fixed; contact-form labels
+  cleaned (`+ FIELD 0X` removed).
 
-## 5. Work completed in this session (chronological)
-
-1. **ServicesDashboard rebuild** (home "Our Services" section): made it
-   interactive + auto-cycling. Services-only (removed irrelevant "console/
-   pipeline/engagements" content). Capability-group sidebar selector, donut
-   chart, rows link straight to `/services/[slug]`, chat composer writes
-   `sessionStorage["vyu:contact-prefill"]` and routes to `/contact`. Operations
-   cards → 3-per-line and moved to Products. Fixed varying card aspect ratios,
-   transition finishing, duplicate visuals, and the click-dropdown behavior.
-2. **Index-section polish** for the "see all products / industries / methodology"
-   dropdowns and the bento sections (per "first bento is great, rest need work").
-3. **Development** section betterment.
-4. **Static pages light pass** (about/research etc.) — "light tightening, rewrite
-   only if needed."
-5. **Legal pages** (`/terms`, `/privacy`): rewritten to plain, full-width,
-   left-aligned documents (no PageHero, no "01/02" numbered sections, no narrow
-   centered column) using client-provided Terms & Privacy copy verbatim.
-   `legal-doc-*` classes. (Flagged but undecided: a "prevailing law of
-   Netherlands" line in Terms — confirm with user.)
-6. **Products** added end-to-end: `lib/products.ts`, `productsNav`, a Products
-   megamenu in `SiteHeader`, `/products` index + `/products/[slug]`. Fixed an
-   earlier `/products` 404.
-7. **Service-detail redesign — prototyped on AI, then rolled to all 30.**
-   - New layout per page: `ServiceHero` (single-column: eyebrow=practice name,
-     h1=headline, intro, two CTAs) → `ServiceCapabilities` (numbered editorial
-     grid of the 6 services, warm-paper) → `StackGrid` → `RelatedCards`
-     (with mini descriptions) → `ClosingCta` → `SiteFooter`.
-   - Created `lib/servicePages.ts` from the client's `services.md`.
-   - `app/services/[slug]/page.tsx` now renders this for **every** service from
-     the content map (the old AI-only `if` branch and the old default template —
-     PageHero/Marquee/Outcomes/ServiceTOCLayout — were removed).
-   - `RelatedCards` gained an optional `description` field; related items pass
-     `getServiceBySlug(r.slug)?.description`.
-   - **Content corrections** made in-context while transcribing `services.md`
-     (the user said "understand what for what and use the content"): Enterprise
-     headline said "AI Innovation" → "Enterprise Innovation"; Payment intro had a
-     mis-pasted AI paragraph (removed); UI/UX item 1 mislabeled "Network Design"
-     → "User Research & Strategy"; Software Quality Testing item 1 "AI-Powered
-     Automation" → "Manual Testing"; "Microservices Aurerchitect" → "Microservices
-     Architecture"; "DA & BA" → "Data & Business Analytics"; Operational Tools
-     stray duplicate headline removed; typos/markdown escapes cleaned.
-   - Rejected experiments along the way (DON'T re-add): a node-graph hero visual
-     (`ServiceHeroVisual.tsx` — still on disk but **unused**, user called it "AI
-     generic"); a "stack panel in the hero" replacing StackGrid ("who asked you").
-     Hero is **single-column by user's explicit choice.**
-8. **Functional bug sweep** (user: "fix bugs all over without changing design/
-   content/layout/structure"):
-   - **Fixed:** `ContactForm` home→contact prefill. The brief `<textarea>` is
-     uncontrolled and was fed `defaultValue={prefill}`, but `prefill` is set in a
-     post-mount `useEffect`; React ignores `defaultValue` changes after mount, so
-     the prefill never appeared. Now written imperatively via `messageRef` in the
-     effect.
-   - **Verified clean:** all internal links / slugs (services, industries→services,
-     products, development, all literal hrefs) resolve — nothing 404s; all timers/
-     listeners/observers clean up (SiteHeader, ServicesDashboard, NumeralCounter,
-     LenisProvider, ContactForm); SSR-guarded `window`/`sessionStorage`; React keys
-     stable.
-   - **Left alone (not bugs):** the 5 ESLint `react-hooks/set-state-in-effect`
-     errors are the new React-compiler advisory firing on correct patterns
-     (matchMedia-on-mount, close-mobile-menu-on-route-change, prefill read) —
-     rewriting them risks behavior/design change. A few unused-var warnings are
-     harmless dead code.
-9. **Contact form labels:** removed the `+ FIELD 01 / 02 …` mono ordinals from
-   every field label (user: "looks odd"); kept the field names. Removed the now-
-   dead `num` prop plumbing from `Field`/`Label` and all call sites.
+**Deferred:** contact-form backend (his team supplies); Terms "prevailing law
+of Netherlands" line (flagged, undecided); `ServiceHeroVisual.tsx` = dead code.
 
 ---
 
-## 6. Known deferred / open items
+## 4. THE 3D BACKGROUND — paused, with hard-won requirements
 
-- **Contact form delivery (backend).** The form currently fakes submission
-  (generates a random reference id, shows a success "stamp", resets). Real
-  delivery is **deferred pending the user's team's backend.** Frontend already
-  reads the prefill and is ready to wire to an endpoint.
-- **Industries `/industries/[slug]`** has NOT been redesigned (still the older
-  PageHero-based template). The service pages were redesigned; industries may be
-  next if the user asks.
-- **Terms "Netherlands prevailing law"** line — flagged, awaiting user decision.
-- `ServiceHeroVisual.tsx` is dead code (kept on disk, not imported).
+**Goal:** replace the temporary dark `PageBackdrop` with a site-wide,
+real-time, cursor-reactive, scroll-scrubbed 3D background.
+
+### Requirements distilled across the whole effort (DO NOT re-litigate)
+- **Light, never dark; but NEVER plain white/grey, and NEVER cream** (cream is
+  the content sections' color). Calm, minimal, attractive, "worthy."
+- **Colorful + alive/atmospheric** (a real world with depth/light), yet calm.
+  Contrast should come from temperature, not darkness.
+- **Real-time + cursor-reactive** (a recorded video was explicitly ruled out —
+  can't react to the pointer). Scroll scrubs forward AND backward like a
+  timeline ("mantling/dismantling").
+- **Objects must look REAL** — solid, lit, premium materials. Banned: dots/
+  particles, wireframes/sketch lines, floating chrome blobs, giant letterforms,
+  bar-chart slabs.
+- **Per-page subjects** eventually: each page builds/shows its own "thing";
+  home = VyuSoft the company. (Tentative: bespoke for Home + 5 capability
+  groups; others inherit their group emblem recolored to their accent.)
+- **Completely original** — he does NOT want any of the references reproduced.
+
+### Reference material (taste/quality ONLY — folder `3d inspi/`)
+Frame sequences + screenshots: `dark peachweb design frames` (particle organism
+on black — liked the motion, not the dark), `peachweb design frames` (glass
+rings over blue sky), `dribble example frames` (bright porcelain scene + magenta
+light beam + gold coin), `peach frames` (dark chrome ring + silk), `peach home
+frames` (pastel dreamscape: hills, water, glass bubbles, fish, jellyfish),
+`photo 1` (dot-matrix hand/robot + glowing voxel star), `photo 2` (glossy black
+coin on steps). He cites photos 1–2 as "objects feel REAL, not sketchy."
+**He explicitly said: take NOTHING from these, build something new.**
+
+### What was tried at `/lab/backdrop` (`app/lab/backdrop/page.tsx`) — all REJECTED
+Standalone sandbox; real site untouched. v1 particle sphere → v2 particle
+bloom→vortex→shell → v3 chrome torus-knot → v4 fibrous organism → v5/6
+box-modules "sketch→build→ignite" (best-liked but "wireframe-y", weak ending) →
+v7/8 per-page emblem system (V monogram + DATA columns) with full post-fx →
+v9 "constructed world" (drafting floor/sky/monoliths) → v10 ceramic-arc ring in
+an atmospheric world → **v11 "Spectrum"** (fan of fins rising from a floor under
+a saturated lavender→peach sky, splitting light). Each was rejected as some mix
+of: pale/grey, blown-out white, unworthy/meaningless, or sketchy.
+
+**The user halted v11 mid-iteration** and told me to STOP wasting tokens. The
+file currently holds v11 (saturated sky works; finale still blows white; fins
+read like plain slabs). It is NOT approved.
+
+### Hard technical learnings (don't relearn)
+- **Bloom on a LIGHT scene white-outs everything** unless `UnrealBloomPass`
+  threshold ≈ 1.0 AND strength stays low (ramp only tiny emissive/additive bits
+  at the finale). This bit me repeatedly — the recurring "blown white finale."
+- Don't light **near-white materials** with the bright RoomEnvironment IBL →
+  everything washes pale. Use **tinted/saturated materials**, dim white IBL,
+  and drive color via a **saturated gradient background + colored rim lights**.
+- `scene.background = gradient CanvasTexture` (set `.colorSpace = SRGBColorSpace`)
+  guarantees a colored sky with zero wash. Fog color must match the mid-tone or
+  distance fades to grey.
+- Self-drawing lines: `LineDashedMaterial` + `computeLineDistances()` + animate
+  `dashSize`. Reflection: mirrored group `scale.y=-1`, `y=2*FLOOR_Y`, low-opacity
+  clones, slightly transparent floor. (Both proven; both since dropped.)
+- TS: don't type three geometries as `BufferGeometry` (generic mismatch); use a
+  union of concrete geometry types.
+- Imports used: `examples/jsm/environments/RoomEnvironment.js`,
+  `geometries/RoundedBoxGeometry.js`, `postprocessing/{EffectComposer,RenderPass,
+  UnrealBloomPass,OutputPass}.js`. `PCFSoftShadowMap` deprecation warning is harmless.
 
 ---
 
-## 7. The immediate next task
+## 5. CURRENT DECISION POINT (where we stopped)
 
-The user said: *"now comes the main and important part of my website"* — he has
-NOT yet described it. He asked first to (a) save this version and (b) produce
-this handoff. **Both are done.** Await his description of "the main and important
-part" before acting. Do not assume what it is.
+I stopped all 3D work and gave the user three paths. **Awaiting his pick:**
+1. **Shelve the 3D for now** — keep a clean simple backdrop, ship the rest of
+   the (strong) site, revisit the hero visual deliberately later. (My rec for now.)
+2. **He provides ONE concrete target** (a real reference to match exactly, or a
+   designer's still mockup / exported 3D model) → implement to that, no inventing.
+3. **A 3D designer makes the asset** → I wire it in (load model/video + scroll +
+   cursor). Integration is the reliable part; art direction comes from them.
+
+**Do NOT resume inventing 3D speculatively.** The lesson: blind iteration in the
+sandbox wastes his tokens and keeps missing. Only build 3D against a concrete,
+agreed target, and verify via /browse screenshots before showing him.
 
 ---
 
-## 8. Verify / build commands (Windows PowerShell)
+## 6. Commands
 
 ```powershell
-# Clean production build (the source of truth for correctness)
-Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
-Remove-Item .next -Recurse -Force -ErrorAction SilentlyContinue
-npx next build
-
-# Lint (next lint is gone in Next 16)
-npx eslint .
-
-# Return to this save point
-git reset --hard 2b25388
+npx tsc --noEmit                      # fast type-check, doesn't touch .next
+npx eslint .                          # lint (next lint is gone in Next 16)
+Get-Process node | Stop-Process -Force; Remove-Item .next -Recurse -Force; npx next build
 ```
-
-Screenshots via the preview tooling frequently time out (grain overlay + scroll
-animations). Prefer verifying via `next build` output, built-HTML grep under
-`.next/server/app/...`, or DOM reads — that's what worked this session.
+```bash
+B="$HOME/.claude/skills/gstack/browse/dist/browse"
+"$B" goto http://localhost:3000/lab/backdrop
+"$B" console --errors
+"$B" screenshot --viewport /tmp/shot.png   # then Read the png
+```

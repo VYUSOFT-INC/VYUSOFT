@@ -55,6 +55,7 @@ export function ClientsStrip() {
                                         width={120}
                                         height={48}
                                         className="clients-strip-logo"
+                                        style={{ height: 48, width: "auto" }}
                                     />
                                 </div>
                             </Reveal>
