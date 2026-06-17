@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import { slowBurn } from "./motion";
 
 const LINES = [
-    "We believe",
-    "great software",
-    "is built by small teams",
-    "who sweat the details,",
-    "write things down,",
-    "and care how systems",
-    "behave at three a.m.",
+    "Technology should be",
+    "an accelerator,",
+    "not a barrier —",
+    "and the teams",
+    "who build it",
+    "should be",
+    "exactly that.",
 ];
 
 /**
@@ -68,7 +68,7 @@ export function ManifestoSection() {
                         delay: 0.9,
                     }}
                 >
-                    Studio operating principle &middot; Active since 2010
+                    VyuSoft operating principle &middot; Active since 2010
                 </motion.p>
             </div>
         </section>

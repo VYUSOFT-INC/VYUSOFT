@@ -69,11 +69,11 @@ export function Products() {
                                     className="product-card product-card--link"
                                     aria-label={`${product.name} — ${product.positioning}`}
                                 >
-                                    {product.image && (
+                                    {product.cardImage && (
                                         <div className="product-card-image-wrap">
                                             <Image
-                                                src={product.image}
-                                                alt=""
+                                                src={product.cardImage}
+                                                alt={`${product.name} preview`}
                                                 width={500}
                                                 height={320}
                                                 className="product-card-image"

@@ -91,6 +91,8 @@ export default function IndustriesIndexPage() {
                 description="Seventeen regulated verticals across five sectors. We don't learn your domain on your dime — we bring engineers who have already shipped under your regulator, your data shape, and your peak-day load."
                 cta={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                heroImage="/sections/industries images/industries index.png"
+                heroImagePosition="75% center"
                 marginalia={[
                     "COMPLIANCE-FIRST",
                     "SHIPPED, NOT LEARNING",
@@ -115,6 +117,7 @@ export default function IndustriesIndexPage() {
                 subtitle="Tell us your sector and where it hurts."
                 primary={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                media="/sections/industries images/industries cta.png"
             />
 
             <SiteFooter />

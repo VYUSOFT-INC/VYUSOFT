@@ -68,7 +68,7 @@ export function SiteHeader() {
                 const delta = currentY - lastScrollY.current;
                 if (currentY < 80) {
                     setHidden(false);
-                } else if (delta > 6 && !openMenu) {
+                } else if (delta > 1 && !openMenu) {
                     setHidden(true);
                 } else if (delta < -6) {
                     setHidden(false);
@@ -191,8 +191,8 @@ export function SiteHeader() {
                     <Image
                         src="/vyusoft-logo-white-transparent.png"
                         alt="VyuSoft"
-                        width={172}
-                        height={34}
+                        width={200}
+                        height={40}
                         className="site-header-logo"
                         priority
                         style={{
@@ -204,8 +204,8 @@ export function SiteHeader() {
                         src="/vyusoft-logo-transparent.png"
                         alt=""
                         aria-hidden="true"
-                        width={172}
-                        height={34}
+                        width={200}
+                        height={40}
                         className="site-header-logo"
                         priority
                         style={{

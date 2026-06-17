@@ -23,20 +23,56 @@ export function ServiceHero({
     title,
     description,
     accent,
+    heroImage,
+    heroImagePosition,
+    heroImageBrightness,
 }: {
     eyebrow: string;
     title: string;
     description: string;
     accent: string;
+    heroImage?: string;
+    heroImagePosition?: string;
+    heroImageBrightness?: number;
 }) {
     return (
         <section
             className="svcd-hero"
             data-theme="dark"
             aria-label={`${title} introduction`}
-            style={{ ["--accent" as string]: accent }}
+            style={{ ["--accent" as string]: accent, overflow: heroImage ? "hidden" : undefined } as React.CSSProperties}
         >
-            <div className="svcd-hero-inner">
+            {heroImage && (
+                <>
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            zIndex: 0,
+                            pointerEvents: "none",
+                            backgroundImage: `url(${encodeURI(heroImage)})`,
+                            backgroundPosition: heroImagePosition || "center",
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            maskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                            filter: heroImageBrightness != null ? `brightness(${heroImageBrightness})` : undefined,
+                        }}
+                    />
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            zIndex: 0,
+                            pointerEvents: "none",
+                            background: "linear-gradient(to right, oklch(7% 0.018 270 / 0.94) 0%, oklch(7% 0.018 270 / 0.82) 40%, oklch(7% 0.018 270 / 0.45) 70%, transparent 100%), linear-gradient(to top, oklch(7% 0.018 270 / 0.75) 0%, oklch(7% 0.018 270 / 0.35) 35%, transparent 60%)",
+                        }}
+                    />
+                </>
+            )}
+            <div className="svcd-hero-inner" style={heroImage ? { position: "relative", zIndex: 1 } : undefined}>
                 <motion.div
                     className="svcd-hero-text"
                     initial="hidden"

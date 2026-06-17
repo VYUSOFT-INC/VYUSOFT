@@ -48,7 +48,7 @@ const COLUMNS: IndustryColumn[] = [
             "Education — AI, cloud, and interactive learning",
             "Energy & Utilities — Smart grid and operations modernization",
         ],
-        cta: { label: "Contact Sales", href: "/contact" },
+        cta: { label: "Start a Project", href: "/contact" },
         variant: "dark",
     },
     {

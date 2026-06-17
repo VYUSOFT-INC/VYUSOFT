@@ -59,11 +59,11 @@ export function ProductShowcase({ product, index }: { product: Product; index: n
                 </div>
 
                 <Reveal delay={0.16} y={36} className="prod-show-visual">
-                    {product.image ? (
+                    {product.cardImage ? (
                         <div className="prod-show-frame">
                             <Image
-                                src={product.image}
-                                alt={`${product.name} interface`}
+                                src={product.cardImage}
+                                alt={`${product.name} preview`}
                                 width={760}
                                 height={560}
                                 className="prod-show-img"

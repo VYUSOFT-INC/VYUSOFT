@@ -13,6 +13,10 @@ type ClosingCtaProps = {
     primary?: { label: string; href: string };
     /** Optional secondary ghost CTA. */
     secondary?: { label: string; href: string };
+    /** Optional right-anchored point-cloud / blueprint plate (pure-black
+     *  background, composited with `screen`). Switches the layout to
+     *  left-aligned so the art sits opposite the copy. */
+    media?: string;
 };
 
 /**
@@ -29,18 +33,30 @@ export function ClosingCta({
     subtitle,
     primary = { label: "Start a Project", href: "/contact" },
     secondary,
+    media,
 }: ClosingCtaProps) {
     return (
-        <section className="closing-cta" aria-labelledby="closing-cta-heading" data-theme="dark">
+        <section
+            className={`closing-cta${media ? " closing-cta--media" : ""}`}
+            aria-labelledby="closing-cta-heading"
+            data-theme="dark"
+        >
+            {media && (
+                <div
+                    className="closing-cta-media"
+                    style={{ ["--cta-media-url" as string]: `url('${media}')` }}
+                    aria-hidden="true"
+                />
+            )}
             <div className="closing-cta-inner">
                 <Reveal delay={0.05}>
                     <h2 id="closing-cta-heading" className="closing-cta-headline">
                         {title}
                         {subtitle && (
-                            <>
-                                <br />
-                                {subtitle}
-                            </>
+                            <span
+                                className="closing-cta-subtitle"
+                                dangerouslySetInnerHTML={{ __html: subtitle }}
+                            />
                         )}
                     </h2>
                 </Reveal>

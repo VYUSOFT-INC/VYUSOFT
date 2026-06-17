@@ -1,4 +1,5 @@
 import { PageBackdrop } from "@/components/layout/PageBackdrop";
+import { HeroFilm } from "./_sections/home/HeroFilm";
 import { Hero } from "./_sections/home/Hero";
 import { ServicesIntro } from "./_sections/home/ServicesIntro";
 import { ClientsStrip } from "./_sections/home/ClientsStrip";
@@ -28,6 +29,7 @@ export default function HomePage() {
     return (
         <>
             <PageBackdrop />
+            <HeroFilm />
 
             <Hero />
             <ServicesIntro />

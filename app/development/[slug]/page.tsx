@@ -7,13 +7,23 @@ import {
 } from "@/lib/development";
 import { metaForPhase } from "@/lib/developmentMeta";
 import { PageBackdrop } from "@/components/layout/PageBackdrop";
-import { PageHero } from "@/components/templates/PageHero";
 import { PhaseTrack } from "@/components/templates/PhaseTrack";
-import { ArtifactsGrid } from "@/components/templates/ArtifactsGrid";
-import { MarqueeStrip } from "@/components/templates/MarqueeStrip";
 import { ClosingCta } from "@/components/templates/ClosingCta";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { Reveal } from "@/components/ui/Reveal";
+import { PhaseSpine } from "../_components/PhaseSpine";
+import { PhaseHero } from "../_components/PhaseHero";
+import { PhaseActivities } from "../_components/PhaseActivities";
+import { PhaseArtifacts } from "../_components/PhaseArtifacts";
+
+const PHASE_HERO_IMAGES: Record<string, { src: string; position?: string }> = {
+    discover: { src: "/sections/process images/discover.png", position: "center" },
+    analyse: { src: "/sections/process images/analyse.png", position: "center" },
+    "ui-prototyping": { src: "/sections/process images/ui prototyping.png", position: "center" },
+    iterations: { src: "/sections/process images/iterations.png", position: "center" },
+    development: { src: "/sections/process images/development.png", position: "center" },
+    "testing-qa": { src: "/sections/process images/testing and qa.png", position: "center" },
+    "launch-support": { src: "/sections/process images/launch and support.png", position: "center" },
+};
 
 export function generateStaticParams() {
     return allDevelopmentSlugs.map((slug) => ({ slug }));
@@ -51,136 +61,73 @@ export default async function DevelopmentPage({
         (p) => p.phaseNumber === phase.phaseNumber - 1,
     );
 
-    const marqueeTokens = [
-        `PHASE ${String(phase.phaseNumber).padStart(2, "0")}`,
-        phase.title.toUpperCase(),
-        meta.duration.toUpperCase(),
-        meta.cadence.toUpperCase(),
-        `LED BY ${meta.leadRole.toUpperCase()}`,
-        "TRANSPARENT · ITERATIVE",
-    ];
-
     return (
-        <>
+        <div className="phase-shell">
             <PageBackdrop accent={phase.accent} />
 
-            <PageHero
-                eyebrow={`PHASE ${String(phase.phaseNumber).padStart(2, "0")} OF ${String(allDevelopmentPhases.length).padStart(2, "0")}`}
-                title={phase.title}
-                description={phase.description}
-                accent={phase.accent}
-                cta={{ label: "Talk to the team", href: "/contact" }}
-                marginalia={[
-                    `${phase.activities.length} ACTIVITIES`,
-                    `DURATION · ${meta.duration.toUpperCase()}`,
-                    `LEAD · ${meta.leadRole.toUpperCase()}`,
-                ]}
-            />
-
-            <MarqueeStrip items={marqueeTokens} accent={phase.accent} variant="dark" />
-
-            <PhaseTrack
+            {/* The family signature: the methodology timeline rides the
+                left edge for the entire visit (desktop). */}
+            <PhaseSpine
                 phases={allDevelopmentPhases.map((p) => ({
                     slug: p.slug,
                     title: p.title,
                     phaseNumber: p.phaseNumber,
                 }))}
                 currentNumber={phase.phaseNumber}
+                accent={phase.accent}
             />
 
-            {/* Phase profile — dark 4/8 strip with three meta facts. */}
-            <section
-                className="inner-dark phase-profile"
-                aria-label="Phase profile"
-                style={{ ["--accent" as string]: phase.accent }}
-            >
-                <div className="inner-section-inner">
-                    <Reveal>
-                        <p className="inner-section-eyebrow">PHASE PROFILE</p>
-                    </Reveal>
-                    <div className="phase-profile-grid">
-                        <Reveal delay={0.08}>
-                            <article className="phase-profile-card">
-                                <p className="phase-profile-label">DURATION</p>
-                                <p className="phase-profile-value">{meta.duration}</p>
-                                <p className="phase-profile-meta">
-                                    Phase length on a typical engagement. Adjusts to scope and stakeholder availability.
-                                </p>
-                            </article>
-                        </Reveal>
-                        <Reveal delay={0.16}>
-                            <article className="phase-profile-card">
-                                <p className="phase-profile-label">CADENCE</p>
-                                <p className="phase-profile-value">{meta.cadence}</p>
-                                <p className="phase-profile-meta">
-                                    How often we surface progress and surface decisions to stakeholders.
-                                </p>
-                            </article>
-                        </Reveal>
-                        <Reveal delay={0.24}>
-                            <article className="phase-profile-card">
-                                <p className="phase-profile-label">LEAD ROLE</p>
-                                <p className="phase-profile-value">{meta.leadRole}</p>
-                                <p className="phase-profile-meta">
-                                    Named senior on the engagement, responsible for the phase and accountable to you.
-                                </p>
-                            </article>
-                        </Reveal>
-                    </div>
-                </div>
-            </section>
+            <PhaseHero
+                phaseNumber={phase.phaseNumber}
+                totalPhases={allDevelopmentPhases.length}
+                title={phase.title}
+                description={phase.description}
+                accent={phase.accent}
+                duration={meta.duration}
+                cadence={meta.cadence}
+                leadRole={meta.leadRole}
+                activityCount={phase.activities.length}
+                heroImage={PHASE_HERO_IMAGES[slug]?.src}
+                heroImagePosition={PHASE_HERO_IMAGES[slug]?.position}
+            />
 
-            {/* Activities — white hairline list */}
-            <section
-                className="inner-light"
-                aria-labelledby="phase-activities-heading"
-                style={{ ["--accent" as string]: phase.accent }}
-            >
-                <div className="inner-section-inner">
-                    <div className="about-competencies-header">
-                        <div>
-                            <Reveal>
-                                <p className="inner-section-eyebrow">ACTIVITIES</p>
-                            </Reveal>
-                            <Reveal delay={0.08}>
-                                <h2
-                                    id="phase-activities-heading"
-                                    className="inner-section-headline"
-                                >
-                                    Six work-streams in this phase.
-                                </h2>
-                            </Reveal>
-                        </div>
-                        <Reveal delay={0.16}>
-                            <p className="inner-section-body about-competencies-lede">
-                                Each activity has a deliverable, an owner, and a written
-                                artifact that survives the engagement.
-                            </p>
-                        </Reveal>
-                    </div>
+            {/* Compact horizontal track for small screens, where the
+                fixed spine is hidden. */}
+            <div className="phase-track-mobile">
+                <PhaseTrack
+                    phases={allDevelopmentPhases.map((p) => ({
+                        slug: p.slug,
+                        title: p.title,
+                        phaseNumber: p.phaseNumber,
+                    }))}
+                    currentNumber={phase.phaseNumber}
+                />
+            </div>
 
-                    <Reveal delay={0.22}>
-                        <ol className="inner-hl-list">
-                            {phase.activities.map((a, i) => (
-                                <li key={i} className="inner-hl-item">
-                                    <span className="inner-hl-num">
-                                        {String(i + 1).padStart(2, "0")}
-                                    </span>
-                                    <h3 className="inner-hl-title">{a.title}</h3>
-                                    <p className="inner-hl-desc">{a.description}</p>
-                                </li>
-                            ))}
-                        </ol>
-                    </Reveal>
-                </div>
-            </section>
+            {/* Activities — the family's signature: the section pins and
+                time runs sideways. */}
+            <PhaseActivities
+                activities={phase.activities}
+                accent={phase.accent}
+                phaseNumber={phase.phaseNumber}
+                duration={meta.duration}
+                leadRole={meta.leadRole}
+                next={
+                    next
+                        ? {
+                              slug: next.slug,
+                              title: next.title,
+                              phaseNumber: next.phaseNumber,
+                          }
+                        : undefined
+                }
+            />
 
             {meta.artifacts.length > 0 && (
-                <ArtifactsGrid
-                    eyebrow="WRITTEN ARTIFACTS"
-                    title="What you keep after this phase."
-                    description="Documents, diagrams, and recorded sessions that outlive the engagement and stay with your team."
+                <PhaseArtifacts
                     artifacts={meta.artifacts}
+                    accent={phase.accent}
+                    phaseNumber={phase.phaseNumber}
                 />
             )}
 
@@ -228,9 +175,10 @@ export default async function DevelopmentPage({
                 title="Brief the team."
                 subtitle="A phased plan with named owners and a calendar, returned within one business day."
                 primary={{ label: "Start a Project", href: "/contact" }}
+                media="/sections/process images/process cta.png"
             />
 
             <SiteFooter />
-        </>
+        </div>
     );
 }

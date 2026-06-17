@@ -4,10 +4,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
 import { easeSlowBurn as slowBurn } from "@/lib/motion";
 
+type ScreenAsset = { src: string; label: string };
+
+const PRODUCT_SCREENS: Record<string, ScreenAsset[]> = {
+    vyudine: [
+        { src: "/sections/products/vyudine ui/Onboarding 1.png", label: "Food delivery" },
+        { src: "/sections/products/vyudine ui/Onboarding 2.png", label: "Grocery ordering" },
+        { src: "/sections/products/vyudine ui/Onboarding 3.png", label: "Rewards & payments" },
+    ],
+    mivyu: [
+        { src: "/sections/products/mivyu ui/Body (1).png", label: "Discover fashion" },
+        { src: "/sections/products/mivyu ui/Body.png", label: "Welcome & onboarding" },
+        { src: "/sections/products/mivyu ui/Body (2).png", label: "Personalized picks" },
+    ],
+    vyuflo: [
+        { src: "/sections/products/vyuflo ui/HR - DashBoard.png", label: "HR Dashboard" },
+        { src: "/sections/products/vyuflo ui/LOGIN - Login Page.png", label: "Sign in" },
+        { src: "/sections/products/vyuflo ui/SIGNUP - Create Account 1.png", label: "Registration" },
+    ],
+};
 
 type Props = {
+    slug: string;
     name: string;
     category: string;
     tagline: string;
@@ -28,14 +49,11 @@ const item = {
     show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: slowBurn } },
 };
 
-/**
- * ProductHero — bespoke product-page hero. Dark transparent panel over the
- * fixed PageBackdrop. Text column on the left (category eyebrow, name,
- * Fraunces-italic tagline, status pill, positioning, CTAs), product visual
- * on the right. Engagement-model entries (no image) render a schematic
- * stack diagram instead so the right column never collapses to whitespace.
- */
+const ROTATE_MS = 4000;
+const SHIFT = 55;
+
 export function ProductHero({
+    slug,
     name,
     category,
     tagline,
@@ -46,6 +64,8 @@ export function ProductHero({
     image,
     secondary,
 }: Props) {
+    const screens = PRODUCT_SCREENS[slug];
+
     return (
         <section
             className="product-hero"
@@ -107,7 +127,9 @@ export function ProductHero({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.9, ease: slowBurn, delay: 0.3 }}
                     >
-                        {image ? (
+                        {screens && screens.length > 1 ? (
+                            <ScreenCarousel screens={screens} name={name} />
+                        ) : image ? (
                             <div className="product-hero-frame">
                                 <Image
                                     src={image}
@@ -120,7 +142,7 @@ export function ProductHero({
                                 />
                             </div>
                         ) : (
-                            <EngagementSchematic name={name} positioning={positioning} />
+                            <EngagementSchematic positioning={positioning} />
                         )}
                     </motion.div>
                 </motion.div>
@@ -129,14 +151,91 @@ export function ProductHero({
     );
 }
 
-/* Schematic shown when a product has no screenshot (engagement model).
-   Four stacked tiers with an accent spine — echoes IndustryBlueprint so it
-   reads as part of the same visual language. */
+function ScreenCarousel({ screens, name }: { screens: ScreenAsset[]; name: string }) {
+    const n = screens.length;
+    const [active, setActive] = useState(0);
+    const [paused, setPaused] = useState(false);
+
+    const advance = useCallback(() => setActive((i) => (i + 1) % n), [n]);
+
+    useEffect(() => {
+        if (paused) return;
+        if (
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) return;
+        const id = window.setInterval(advance, ROTATE_MS);
+        return () => window.clearInterval(id);
+    }, [paused, advance]);
+
+    return (
+        <div
+            className="product-hero-carousel"
+            role="group"
+            aria-label={`${name} app screens`}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
+        >
+            <div className="product-hero-carousel-track">
+                {screens.map((screen, i) => {
+                    let offset = i - active;
+                    if (offset > n / 2) offset -= n;
+                    if (offset < -n / 2) offset += n;
+                    const dist = Math.abs(offset);
+                    const center = offset === 0;
+                    const neighbour = dist === 1;
+
+                    return (
+                        <div
+                            key={screen.src}
+                            className={`product-hero-slide ${center ? "product-hero-slide--active" : ""}`}
+                            style={{
+                                transform: `translateX(calc(-50% + ${offset * SHIFT}%)) scale(${center ? 1 : neighbour ? 0.82 : 0.65})`,
+                                opacity: center ? 1 : neighbour ? 0.45 : 0,
+                                zIndex: n - dist,
+                                pointerEvents: center || neighbour ? "auto" : "none",
+                            }}
+                            aria-hidden={!center}
+                            onClick={center ? advance : () => setActive(i)}
+                        >
+                            <div className="product-hero-slide-frame">
+                                <Image
+                                    src={screen.src}
+                                    alt={`${name} — ${screen.label}`}
+                                    width={720}
+                                    height={520}
+                                    className="product-hero-slide-img"
+                                    sizes="(max-width: 1024px) 80vw, 440px"
+                                    priority={center}
+                                />
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <div className="product-hero-carousel-dots" role="tablist" aria-label="Select screen">
+                {screens.map((screen, i) => (
+                    <button
+                        key={screen.src}
+                        type="button"
+                        role="tab"
+                        className={`product-hero-carousel-dot ${i === active ? "is-active" : ""}`}
+                        aria-label={screen.label}
+                        aria-selected={i === active}
+                        onClick={() => setActive(i)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 function EngagementSchematic({
-    name,
     positioning,
 }: {
-    name: string;
     positioning: string;
 }) {
     const tiers = ["STRATEGY", "DESIGN", "ENGINEERING", "OPERATIONS"];

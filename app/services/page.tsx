@@ -77,6 +77,8 @@ export default function ServicesIndexPage() {
                 description="Five disciplines, thirty practices — but you're not hiring a catalogue. You're hiring the specific people who have already shipped the thing you're trying to ship. Tell us where it hurts; we'll bring the ones who've fixed it before."
                 cta={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "How we work", href: "/development" }}
+                heroImage="/sections/service images/services index.png"
+                heroImagePosition="75% center"
                 marginalia={[
                     "ONE ACCOUNTABLE TEAM",
                     "SHIPPED, NOT STAFFED",
@@ -112,9 +114,10 @@ export default function ServicesIndexPage() {
 
             <ClosingCta
                 title="Not sure which you need?"
-                subtitle="Describe the problem in a paragraph — we'll tell you who to talk to."
+                subtitle="Describe the problem in a paragraph &mdash; we'll tell you who to talk to."
                 primary={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our industries", href: "/industries" }}
+                media="/sections/service images/services cta.png"
             />
 
             <SiteFooter />

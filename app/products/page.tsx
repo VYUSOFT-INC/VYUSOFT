@@ -28,6 +28,8 @@ export default function ProductsIndexPage() {
                 description="Three applications in active development under the VyuSoft label, plus a senior-led engagement track for funded founders. We back our consulting with products we build, run, and stand behind — so we feel the same edges our clients do."
                 cta={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                heroImage="/sections/products/products index.png"
+                heroImagePosition="75% center"
                 marginalia={[
                     "BUILT IN-HOUSE",
                     "SHIPPED, NOT PITCHED",
@@ -41,9 +43,10 @@ export default function ProductsIndexPage() {
 
             <ClosingCta
                 title="Have a product idea of your own?"
-                subtitle="We're building ours the same way we'd build yours."
+                subtitle="We&rsquo;re building ours the same way we&rsquo;d build yours."
                 primary={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                media="/sections/products/products cta.png"
             />
 
             <SiteFooter />

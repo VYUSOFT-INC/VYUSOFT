@@ -44,6 +44,8 @@ export default function DevelopmentIndexPage() {
                 description="Seven phases, one calendar, no theatre. Each phase has a deliverable, an owner, and a written artifact you keep. Here is exactly how an engagement moves — and what lands in your hands at every step."
                 cta={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                heroImage="/sections/process images/development index.png"
+                heroImagePosition="75% center"
                 marginalia={[
                     "TRANSPARENT · ITERATIVE",
                     "WRITTEN ARTIFACTS",
@@ -55,9 +57,10 @@ export default function DevelopmentIndexPage() {
 
             <ClosingCta
                 title="Want a plan like this for your build?"
-                subtitle="We'll return a phased plan with named owners and a calendar within one business day."
+                subtitle="We&rsquo;ll return a phased plan with named owners and a calendar within one business day."
                 primary={{ label: "Start a Project", href: "/contact" }}
                 secondary={{ label: "See our services", href: "/services" }}
+                media="/sections/process images/process cta.png"
             />
 
             <SiteFooter />

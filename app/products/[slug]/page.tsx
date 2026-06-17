@@ -60,6 +60,7 @@ export default async function ProductPage({
             <PageBackdrop accent={product.accent} />
 
             <ProductHero
+                slug={slug}
                 name={product.name}
                 category={product.category}
                 tagline={product.tagline}
@@ -129,9 +130,10 @@ export default async function ProductPage({
             {isApp ? (
                 <ClosingCta
                     title={`${product.name} is coming soon.`}
-                    subtitle="Tell us how you'd use it — we'll keep you posted."
+                    subtitle="Tell us how you'd use it &mdash; we'll keep you posted."
                     primary={{ label: "Register interest", href: "/contact" }}
                     secondary={{ label: "See all products", href: "/products" }}
+                    media="/sections/products/products cta.png"
                 />
             ) : (
                 <ClosingCta
@@ -144,6 +146,7 @@ export default async function ProductPage({
                             href: "/products",
                         }
                     }
+                    media="/sections/products/products cta.png"
                 />
             )}
 

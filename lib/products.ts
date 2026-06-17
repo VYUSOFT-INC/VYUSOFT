@@ -32,6 +32,8 @@ export type Product = {
     accent: string;
     /** Hero image, or null for engagement-model entries. */
     image: string | null;
+    /** Card image shown on home page and products index (3D renders). */
+    cardImage: string | null;
     /** Short hero sub-headline. */
     tagline: string;
     /** Narrative overview paragraph. */
@@ -58,7 +60,8 @@ export const allProducts: Product[] = [
             "A food-delivery application that connects restaurants, riders, and customers — real-time ordering, fee-aware dispatch, kitchen-aware timing, and loyalty that rewards the restaurant's regulars. In active development.",
         status: "In development",
         accent: "#FF6B35",
-        image: "/sections/products/food-app.png",
+        image: "/sections/products/vyudine ui/Onboarding 1.png",
+        cardImage: "/sections/products/vyudine home.png",
         tagline: "A food-delivery app, built end to end.",
         overview:
             "Vyudine is a food-delivery application we're building in-house. It brings restaurants, riders, and customers onto one fast experience — real-time ordering and dispatch, kitchen-aware timing, and loyalty that pays back the restaurant rather than a marketplace. It's under active development and will be available soon.",
@@ -82,7 +85,8 @@ export const allProducts: Product[] = [
             "A commerce application for modern online stores — fast storefronts, built-in analytics, secure payments, and inventory that keeps up with demand. In active development.",
         status: "In development",
         accent: "#635BFF",
-        image: "/sections/products/ecommerce.png",
+        image: "/sections/products/mivyu ui/Body (1).png",
+        cardImage: "/sections/products/mivyu home.png",
         tagline: "A commerce app for modern stores.",
         overview:
             "Mivyu is an e-commerce application we're building in-house. Fast storefronts, first-party analytics, secure payments, and inventory intelligence in one app — so the gap between what marketing spends and what the store earns is finally legible. It's under active development and will be available soon.",
@@ -106,7 +110,8 @@ export const allProducts: Product[] = [
             "A visa & mobility application that ends the email-a-PDF shuffle — secure document handling, real-time status, and automated checks for applicants and immigration teams. In active development.",
         status: "In development",
         accent: "#06B6D4",
-        image: "/sections/products/info-xchange.png",
+        image: "/sections/products/vyuflo ui/HR - DashBoard.png",
+        cardImage: "/sections/products/vyuflo home.png",
         tagline: "A visa & mobility app, finally sane.",
         overview:
             "Vyuflo is a visa & mobility application we're building in-house. It replaces the email-a-PDF-and-wait ritual with secure document handling, real-time consular status, and automated verification — keeping applicants and immigration teams on the same page. It's under active development and will be available soon.",
@@ -131,6 +136,7 @@ export const allProducts: Product[] = [
         status: "Active",
         accent: "#C9962E",
         image: null,
+        cardImage: null,
         tagline: "One accountable principal, from architecture to launch.",
         overview:
             "Not an app — an engagement model. VYU Startup Solutions pulls every studio practice into one accountable principal for funded founders: strategy, design, engineering, and operations on a single calendar, from week-one architecture through post-launch ramp.",

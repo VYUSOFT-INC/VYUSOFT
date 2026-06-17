@@ -1,67 +1,76 @@
-"use client";
-
 import Image from "next/image";
-import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * ClientsStrip — "Trusted by leading teams worldwide."
+ * ClientsStrip — compact single-band trust strip.
  *
- * 7 client logos as glassmorphism cards on the same dark backdrop continued
- * from ServicesIntro. Static row (no marquee) like PeachWeb's frame 120.
+ * Layout mirrors the reference: heading on the LEFT, a horizontal logo
+ * marquee filling the rest of the row on the RIGHT. One thin band, not a
+ * full-height grid. The marquee keeps the carousel motion requested; the
+ * track is duplicated so a single translateX keyframe loops seamlessly.
  */
 
-/* Real VyuSoft client logos — 4 unique, no duplicates. */
-const LOGOS: { src: string; alt: string; ariaHidden?: boolean }[] = [
+const LOGOS: { src: string; alt: string }[] = [
     { src: "/trust/kink-2.png", alt: "Kinko Architecture" },
     { src: "/trust/Garret-2.png", alt: "Garreth" },
     { src: "/trust/square-pixel-2.png", alt: "Square Pixel" },
     { src: "/trust/Domoo-2.png", alt: "Domo" },
 ];
 
+// Three copies per track keeps the strip dense at any width; the track
+// itself is rendered twice for the seamless -100% loop.
+const TRACK = [...LOGOS, ...LOGOS, ...LOGOS];
+
 export function ClientsStrip() {
     return (
-        <section className="clients-strip" aria-labelledby="clients-strip-heading" data-theme="dark">
+        <section
+            className="clients-strip"
+            aria-labelledby="clients-strip-heading"
+            data-theme="dark"
+        >
             <div className="clients-strip-content">
-                <Reveal>
-                    <div className="clients-strip-header">
-                        <p className="clients-strip-eyebrow">OUR CLIENTS</p>
-                        <h2
-                            id="clients-strip-heading"
-                            className="clients-strip-title"
-                        >
-                            Trusted by leading
-                            <br />
-                            teams worldwide.
-                        </h2>
-                    </div>
-                </Reveal>
+                <h2 id="clients-strip-heading" className="clients-strip-title">
+                    Trusted by leading teams worldwide.
+                </h2>
 
-                <Reveal delay={0.1} y={32}>
-                    <div className="clients-strip-grid">
-                        {LOGOS.map((logo, i) => (
-                            <Reveal
-                                key={`${logo.alt}-${i}`}
-                                delay={0.07 * i}
-                                y={20}
-                                duration={0.55}
-                            >
-                                <div
-                                    className="clients-strip-card"
-                                    aria-hidden={logo.ariaHidden || undefined}
-                                >
-                                    <Image
-                                        src={logo.src}
-                                        alt={logo.ariaHidden ? "" : logo.alt}
-                                        width={120}
-                                        height={48}
-                                        className="clients-strip-logo"
-                                        style={{ height: 48, width: "auto" }}
-                                    />
-                                </div>
-                            </Reveal>
+                <div
+                    className="clients-marquee"
+                    role="region"
+                    aria-label="Selected clients"
+                >
+                    <div className="clients-marquee-track" aria-hidden="true">
+                        {TRACK.map((logo, i) => (
+                            <span key={`a-${i}`} className="clients-marquee-item">
+                                <Image
+                                    src={logo.src}
+                                    alt=""
+                                    width={120}
+                                    height={34}
+                                    className="clients-marquee-logo"
+                                    style={{ height: 34, width: "auto" }}
+                                />
+                            </span>
                         ))}
                     </div>
-                </Reveal>
+                    <div className="clients-marquee-track" aria-hidden="true">
+                        {TRACK.map((logo, i) => (
+                            <span key={`b-${i}`} className="clients-marquee-item">
+                                <Image
+                                    src={logo.src}
+                                    alt=""
+                                    width={120}
+                                    height={34}
+                                    className="clients-marquee-logo"
+                                    style={{ height: 34, width: "auto" }}
+                                />
+                            </span>
+                        ))}
+                    </div>
+                    <ul className="sr-only">
+                        {LOGOS.map((l) => (
+                            <li key={l.alt}>{l.alt}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </section>
     );

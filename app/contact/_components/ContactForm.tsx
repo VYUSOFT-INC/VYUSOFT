@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useActionState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { stampReveal, easeSlowBurn } from "@/lib/motion";
+import { sendContactForm } from "../action";
 
 const PREFILL_KEY = "vyu:contact-prefill";
 
@@ -24,12 +25,19 @@ const services = [
  * hairline dispatch stamp instead of a generic toast.
  */
 export function ContactForm() {
-    const [submitted, setSubmitted] = useState(false);
-    const [ref, setRef] = useState<string>("");
+    const [state, formAction, isPending] = useActionState(sendContactForm, { ok: false });
+    const [sent, setSent] = useState(false);
     const [prefill, setPrefill] = useState<string>("");
     const messageRef = useRef<HTMLTextAreaElement | null>(null);
+    const formRef = useRef<HTMLFormElement | null>(null);
 
-    // Pull any query passed from the home services chat box into the brief.
+    const submitted = sent;
+    const ref = state.ref ?? "";
+
+    useEffect(() => {
+        if (state.ok && !sent) setSent(true);
+    }, [state.ok, sent]);
+
     useEffect(() => {
         if (typeof window === "undefined") return;
         try {
@@ -38,8 +46,6 @@ export function ContactForm() {
                 setPrefill(stored);
                 sessionStorage.removeItem(PREFILL_KEY);
                 requestAnimationFrame(() => {
-                    // Set the value imperatively: the textarea is uncontrolled,
-                    // so a post-mount `defaultValue` change alone won't apply.
                     if (messageRef.current) {
                         messageRef.current.value = stored;
                         messageRef.current.focus();
@@ -53,21 +59,14 @@ export function ContactForm() {
         }
     }, []);
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const id = (Math.random().toString(36).slice(2, 10) + Date.now().toString(36)).slice(0, 9).toUpperCase();
-        setRef(id);
-        setSubmitted(true);
-        (e.currentTarget as HTMLFormElement).reset();
-    }
-
     return (
         <div>
             <AnimatePresence mode="wait">
                 {!submitted ? (
                     <motion.form
                         key="form"
-                        onSubmit={handleSubmit}
+                        ref={formRef}
+                        action={formAction}
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0, y: -4 }}
                         transition={{ duration: 0.25, ease: easeSlowBurn }}
@@ -152,12 +151,20 @@ export function ContactForm() {
                             </label>
                         </div>
 
+                        {state.error && (
+                            <p className="t-body-sm" style={{ color: "oklch(0.65 0.2 25)" }}>
+                                {state.error}
+                            </p>
+                        )}
+
                         <button
                             type="submit"
+                            disabled={isPending}
                             className="btn-primary self-start"
+                            style={{ opacity: isPending ? 0.6 : 1 }}
                         >
-                            Dispatch the brief
-                            <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} />
+                            {isPending ? "Sending…" : "Dispatch the brief"}
+                            {!isPending && <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} />}
                         </button>
                     </motion.form>
                 ) : (
@@ -217,7 +224,7 @@ export function ContactForm() {
                             </p>
                             <button
                                 type="button"
-                                onClick={() => setSubmitted(false)}
+                                onClick={() => setSent(false)}
                                 className="t-body-sm link-inline mt-8 inline-block"
                                 style={{ color: "var(--color-ink)" }}
                             >

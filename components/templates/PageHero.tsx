@@ -6,23 +6,17 @@ import { motion } from "framer-motion";
 import { easeSlowBurn as slowBurn } from "@/lib/motion";
 
 type Props = {
-    /** Small uppercase eyebrow label, e.g. "VYUSOFT, A STUDY". */
     eyebrow: string;
-    /** The big sans-serif headline. Use \\n for explicit line breaks. */
     title: string;
-    /** Body paragraph rendered in the right column. */
     description: string;
-    /** Hex per-page accent. Drives the eyebrow tick + focus ring. */
     accent?: string;
-    /** Optional primary CTA pill. Defaults to "Start a Project" → /contact. */
     cta?: { label: string; href: string };
-    /** Optional secondary ghost CTA. */
     secondary?: { label: string; href: string };
-    /** Optional content rendered in the right column (e.g. industry blueprint). */
     aside?: React.ReactNode;
-    /** Optional dossier-style marginalia rendered as a single mono line
-     *  beneath the hero grid. Items joined by middle-dots. */
     marginalia?: string[];
+    heroImage?: string;
+    heroImagePosition?: string;
+    heroImageBrightness?: number;
 };
 
 /* Motion choreography — slow-burn ease-out, line-by-line stagger.
@@ -80,10 +74,15 @@ export function PageHero({
     secondary,
     aside,
     marginalia,
+    heroImage,
+    heroImagePosition,
+    heroImageBrightness,
 }: Props) {
     const localStyle = accent
-        ? ({ "--accent": accent } as React.CSSProperties)
-        : undefined;
+        ? ({ "--accent": accent, overflow: heroImage ? "hidden" : undefined } as React.CSSProperties)
+        : heroImage
+          ? ({ overflow: "hidden" } as React.CSSProperties)
+          : undefined;
 
     const lines = title.split("\n");
 
@@ -94,7 +93,37 @@ export function PageHero({
             data-theme="dark"
             style={localStyle}
         >
-            <div className="page-hero-inner">
+            {heroImage && (
+                <>
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            zIndex: 0,
+                            pointerEvents: "none",
+                            backgroundImage: `url(${encodeURI(heroImage)})`,
+                            backgroundPosition: heroImagePosition || "center",
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            maskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                            filter: heroImageBrightness != null ? `brightness(${heroImageBrightness})` : undefined,
+                        }}
+                    />
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            zIndex: 0,
+                            pointerEvents: "none",
+                            background: "linear-gradient(to right, oklch(7% 0.018 270 / 0.94) 0%, oklch(7% 0.018 270 / 0.82) 40%, oklch(7% 0.018 270 / 0.45) 70%, transparent 100%), linear-gradient(to top, oklch(7% 0.018 270 / 0.75) 0%, oklch(7% 0.018 270 / 0.35) 35%, transparent 60%)",
+                        }}
+                    />
+                </>
+            )}
+            <div className="page-hero-inner" style={heroImage ? { position: "relative", zIndex: 1 } : undefined}>
                 <motion.div
                     className={`page-hero-grid ${aside ? "page-hero-grid--with-aside" : ""}`}
                     initial="hidden"

@@ -6,7 +6,6 @@
 // Run with: node scripts/strip-logo-bg.mjs
 
 import sharp from "sharp";
-import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 

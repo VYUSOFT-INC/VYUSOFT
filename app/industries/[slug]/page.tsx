@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { allIndustrySlugs, getIndustryBySlug, allIndustries } from "@/lib/industries";
 import { regulatoryForIndustry, operationalSignals } from "@/lib/industryMeta";
+import { getIndustryPageContent } from "@/lib/industryPages";
 import { PageBackdrop } from "@/components/layout/PageBackdrop";
 import { PageHero } from "@/components/templates/PageHero";
 import { IndustryBlueprint } from "@/components/templates/IndustryBlueprint";
@@ -13,6 +14,29 @@ import { MarqueeStrip } from "@/components/templates/MarqueeStrip";
 import { ClosingCta } from "@/components/templates/ClosingCta";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Reveal } from "@/components/ui/Reveal";
+import { IndustryHero } from "../_components/IndustryHero";
+import { IndustryChallenge } from "../_components/IndustryChallenge";
+import { IndustrySolutions } from "../_components/IndustrySolutions";
+
+const INDUSTRY_HERO_IMAGES: Record<string, { src: string; position?: string; brightness?: number }> = {
+    banking: { src: "/sections/industries images/banking.png", position: "75% center" },
+    "capital-markets": { src: "/sections/industries images/capital market.png", position: "75% center" },
+    "communication-media": { src: "/sections/industries images/communication and media.png", position: "75% center" },
+    "consumer-packed-goods": { src: "/sections/industries images/consumer packed goods.png", position: "75% center" },
+    ecommerce: { src: "/sections/industries images/e-commerce.png", position: "75% center" },
+    education: { src: "/sections/industries images/education.png", position: "75% center" },
+    "energy-utilities": { src: "/sections/industries images/energy and utility.png", position: "75% center" },
+    fintech: { src: "/sections/industries images/fintech.png", position: "75% center" },
+    "food-grocery": { src: "/sections/industries images/food and groceries.png", position: "75% center" },
+    government: { src: "/sections/industries images/government.png", position: "75% center" },
+    healthcare: { src: "/sections/industries images/health care.png", position: "75% center" },
+    insurance: { src: "/sections/industries images/insurance.png", position: "75% center" },
+    "it-services": { src: "/sections/industries images/it services.png", position: "75% center" },
+    manufacturing: { src: "/sections/industries images/manufacturing.png", position: "75% center" },
+    "public-services": { src: "/sections/industries images/public service.png", position: "75% center" },
+    retail: { src: "/sections/industries images/retail.png", position: "75% center" },
+    "travel-logistics": { src: "/sections/industries images/travel and logistics.png", position: "75% center" },
+};
 
 export function generateStaticParams() {
     return allIndustrySlugs.map((slug) => ({ slug }));
@@ -32,6 +56,14 @@ export async function generateMetadata({
     };
 }
 
+/**
+ * Industry pages — lean four-section anatomy: dark hero → cream
+ * Challenge diagram (industry-at-center node map) → dark Solutions
+ * (numbered cards) → dark CTA + footer. No workflow, no case-study
+ * placeholders, no trust-mark row, no sub-sector carousel — each was
+ * filler that didn't earn its place. Industries with supplied content
+ * (lib/industryPages.ts) render this template; the rest keep legacy.
+ */
 export default async function IndustryPage({
     params,
 }: {
@@ -42,9 +74,9 @@ export default async function IndustryPage({
     if (!industry) notFound();
 
     const frameworks = regulatoryForIndustry(industry.slug);
+    const content = getIndustryPageContent(industry.slug);
 
-    // Cross-link to three other industries (next in the catalogue) so
-    // visitors can keep exploring sector adjacencies.
+    // Cross-link to three other industries (next in the catalogue).
     const idx = allIndustries.findIndex((i) => i.slug === industry.slug);
     const related = [1, 2, 3]
         .map((offset) => allIndustries[(idx + offset) % allIndustries.length])
@@ -58,6 +90,53 @@ export default async function IndustryPage({
             description: i.description,
         }));
 
+    /* ── Six-section template — for industries with supplied content ─ */
+    if (content) {
+        return (
+            <>
+                <PageBackdrop accent={industry.accent} />
+
+                <IndustryHero
+                    industry={industry.title}
+                    eyebrow={content.eyebrow ?? "INDUSTRY"}
+                    headline={content.headline}
+                    vision={content.vision}
+                    accent={industry.accent}
+                    solutionsCount={content.solutions.length}
+                    heroImage={INDUSTRY_HERO_IMAGES[slug]?.src}
+                    heroImagePosition={INDUSTRY_HERO_IMAGES[slug]?.position}
+                    heroImageBrightness={INDUSTRY_HERO_IMAGES[slug]?.brightness}
+                />
+
+                <IndustryChallenge
+                    industry={industry.title}
+                    title={content.challenge.title}
+                    lede={content.challenge.lede}
+                    cards={content.challenge.cards}
+                    accent={industry.accent}
+                />
+
+                <IndustrySolutions
+                    title={content.solutionsTitle}
+                    lede={content.solutionsLede}
+                    solutions={content.solutions}
+                    accent={industry.accent}
+                />
+
+                <ClosingCta
+                    title={content.cta.title}
+                    subtitle={content.cta.lede}
+                    primary={{ label: "Contact us today", href: "/contact" }}
+                    secondary={{ label: "See more verticals", href: "/industries" }}
+                    media="/sections/industries images/industries cta.png"
+                />
+
+                <SiteFooter />
+            </>
+        );
+    }
+
+    /* ── Legacy template (industries without supplied content) ───── */
     const marqueeTokens = [
         industry.title.toUpperCase(),
         `${frameworks.length} REGULATORY FRAMEWORKS`,
@@ -76,6 +155,9 @@ export default async function IndustryPage({
                 description={industry.description}
                 accent={industry.accent}
                 cta={{ label: "Engage the team", href: "/contact" }}
+                heroImage={INDUSTRY_HERO_IMAGES[slug]?.src}
+                heroImagePosition={INDUSTRY_HERO_IMAGES[slug]?.position}
+                heroImageBrightness={INDUSTRY_HERO_IMAGES[slug]?.brightness}
                 aside={
                     <IndustryBlueprint
                         industry={industry.title}
@@ -92,7 +174,6 @@ export default async function IndustryPage({
 
             <MarqueeStrip items={marqueeTokens} accent={industry.accent} variant="dark" />
 
-            {/* Solutions — white hairline list linking to per-service pages */}
             <section
                 className="inner-light"
                 aria-labelledby="industry-solutions-heading"
@@ -162,7 +243,6 @@ export default async function IndustryPage({
                 outcomes={operationalSignals}
             />
 
-            {/* Value props — dark 4/8 editorial split */}
             <section
                 className="inner-dark"
                 aria-labelledby="industry-value-heading"
@@ -217,6 +297,7 @@ export default async function IndustryPage({
                 subtitle="Tell us where it hurts."
                 primary={{ label: "Start the conversation", href: "/contact" }}
                 secondary={{ label: "See more verticals", href: "/industries" }}
+                media="/sections/industries images/industries cta.png"
             />
 
             <SiteFooter />

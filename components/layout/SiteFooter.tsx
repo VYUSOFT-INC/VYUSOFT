@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 /**
  * SiteFooter — colophon. Real VyuSoft contact details (Denton, TX HQ).
@@ -15,7 +16,15 @@ export function SiteFooter() {
         <footer className="site-footer" aria-label="Site footer">
             <div className="site-footer-inner">
                 <div className="site-footer-brand">
-                    <p className="site-footer-logo">VYUSOFT</p>
+                    <Link href="/" aria-label="VyuSoft, home">
+                        <Image
+                            src="/vyusoft-logo-white-transparent.png"
+                            alt="VyuSoft"
+                            width={200}
+                            height={40}
+                            style={{ height: 40, width: "auto", objectFit: "contain", marginBottom: 12 }}
+                        />
+                    </Link>
                     <a
                         href="mailto:sales@vyusoft.com"
                         className="site-footer-email"
@@ -28,26 +37,41 @@ export function SiteFooter() {
                     >
                         +1 (469)-213-2369
                     </a>
+                    <a
+                        href="tel:+19409779963"
+                        className="site-footer-email"
+                    >
+                        +1 (940) 977-9963
+                    </a>
                     <p className="site-footer-address">
-                        414 W Parkway St,
+                        511 E John Carpenter Fwy, STE 500,
                         <br />
-                        Denton, Texas, 76201, USA
+                        Irving, Texas, 75062, USA
                     </p>
                 </div>
 
                 <div className="site-footer-cols">
                     <div className="site-footer-col">
                         <p className="site-footer-col-title">Menu</p>
+                        <Link href="/" className="site-footer-link">Home</Link>
                         <Link href="/services" className="site-footer-link">Services</Link>
                         <Link href="/products" className="site-footer-link">Products</Link>
                         <Link href="/about" className="site-footer-link">About</Link>
-                        <Link href="/contact" className="site-footer-link">Contact</Link>
+                        <Link href="/contact" className="site-footer-link">Contact Us</Link>
                     </div>
                     <div className="site-footer-col">
-                        <p className="site-footer-col-title">Studio</p>
-                        <Link href="/research" className="site-footer-link">Research</Link>
-                        <Link href="/privacy" className="site-footer-link">Privacy</Link>
-                        <Link href="/terms" className="site-footer-link">Terms</Link>
+                        <p className="site-footer-col-title">Company</p>
+                        <Link href="/services/vyu-startup-solutions" className="site-footer-link">Startup Solutions</Link>
+                        <Link
+                            href="https://vyusoft.zohorecruit.com/jobs/Careers/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="site-footer-link"
+                        >
+                            Careers
+                        </Link>
+                        <Link href="/privacy" className="site-footer-link">Privacy Policy</Link>
+                        <Link href="/terms" className="site-footer-link">Terms &amp; Conditions</Link>
                     </div>
                     <div className="site-footer-col">
                         <p className="site-footer-col-title">Socials</p>
@@ -84,7 +108,7 @@ export function SiteFooter() {
                     &copy; {new Date().getFullYear()} VyuSoft. All rights reserved.
                 </p>
                 <p className="site-footer-baseline-text">
-                    Engineered in Denton, Texas.
+                    Engineered in Irving, Texas.
                 </p>
             </div>
         </footer>

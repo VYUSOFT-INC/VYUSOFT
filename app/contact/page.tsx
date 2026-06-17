@@ -25,6 +25,8 @@ export default function ContactPage() {
                 title={"Bring us a\nhard problem."}
                 description="Send a paragraph describing what you are trying to ship and where it hurts. A principal engineer will respond personally within one business day. No discovery-call gate."
                 cta={{ label: "Skip to the brief", href: "#brief" }}
+                heroImage="/sections/contact us/contact.png"
+                heroImagePosition="75% center"
                 marginalia={[
                     "RESPONSE · ONE BUSINESS DAY",
                     "SALES@VYUSOFT.COM",
@@ -66,14 +68,20 @@ export default function ContactPage() {
                                 />
                                 <InfoRow
                                     icon={<Phone strokeWidth={1.5} />}
-                                    label="PHONE"
+                                    label="TELEPHONE"
                                     value="+1 (469) 213-2369"
                                     href="tel:+14692132369"
                                 />
                                 <InfoRow
+                                    icon={<Phone strokeWidth={1.5} />}
+                                    label="PHONE"
+                                    value="+1 (940) 977-9963"
+                                    href="tel:+19409779963"
+                                />
+                                <InfoRow
                                     icon={<MapPin strokeWidth={1.5} />}
                                     label="OFFICE"
-                                    value="414 W Parkway St, Denton, TX 76201"
+                                    value="511 E John Carpenter Fwy, STE 500, Irving, TX 75062"
                                 />
                             </ul>
 

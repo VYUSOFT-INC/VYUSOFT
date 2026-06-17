@@ -89,14 +89,14 @@ export function Hero() {
                         </p>
 
                         <div className="hero-dark-actions">
-                            <Link href="/contact" className="hero-dark-cta-primary">
-                                Start a Project
+                            <Link href="/services" className="hero-dark-cta-primary">
+                                See how we build
                                 <span className="hero-dark-cta-icon">
                                     <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} />
                                 </span>
                             </Link>
-                            <Link href="/services" className="hero-dark-cta-secondary">
-                                Learn More
+                            <Link href="/contact" className="hero-dark-cta-secondary">
+                                Tell us your idea
                             </Link>
                         </div>
                     </div>

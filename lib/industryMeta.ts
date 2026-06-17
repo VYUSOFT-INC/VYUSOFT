@@ -134,6 +134,50 @@ export function regulatoryForIndustry(slug: string): RegulatoryFramework[] {
     return REGULATORY_BY_INDUSTRY[slug] ?? REGULATORY_DEFAULTS;
 }
 
+/* ── Sector reality — one editorial statement per industry that says
+   what the sector actually is, before any selling happens. Qualitative
+   truths only; no invented figures. Currently written for the dossier-
+   template pilot sectors; extended at rollout. */
+export type SectorRealityCopy = {
+    kicker: string;
+    statement: string;
+    conditions: string[];
+};
+
+const REALITY_BY_INDUSTRY: Record<string, SectorRealityCopy> = {
+    banking: {
+        kicker: "What banking runs on.",
+        statement: "Trust, settled in milliseconds.",
+        conditions: [
+            "Always-on availability is the baseline, not the feature.",
+            "Every transaction must survive an audit.",
+            "Fraud adapts daily — defences have to adapt faster.",
+        ],
+    },
+    healthcare: {
+        kicker: "What healthcare protects.",
+        statement: "Human life, recorded in data.",
+        conditions: [
+            "Patient data outlives every system that stores it.",
+            "Downtime is measured in outcomes, not minutes.",
+            "Interoperability is a clinical requirement, not a feature.",
+        ],
+    },
+    manufacturing: {
+        kicker: "What manufacturing optimises.",
+        statement: "Physical throughput, decided in software.",
+        conditions: [
+            "The line does not pause for software releases.",
+            "Every sensor is a decision waiting to be made.",
+            "Safety and uptime are the same requirement.",
+        ],
+    },
+};
+
+export function realityForIndustry(slug: string): SectorRealityCopy | undefined {
+    return REALITY_BY_INDUSTRY[slug];
+}
+
 /* ── Operational signals — three numbers per industry that read as
    credible delivery commitments. Generic but punchy; per-industry
    overrides can replace if needed. */
