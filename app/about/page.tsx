@@ -44,10 +44,10 @@ const pillars = [
 ];
 
 const stats = [
-    { target: 1250, suffix: "+ clients", label: "Happy to name them on request" },
-    { target: 2450, suffix: "+ projects", label: "Delivered end-to-end" },
-    { target: 85, suffix: "+ team", label: "Engineers, scientists, architects" },
-    { target: 120, suffix: "+ awards", label: "Industry recognitions" },
+    { target: 25, suffix: "+ clients", label: "Happy to name them on request" },
+    { target: 50, suffix: "+ projects", label: "Delivered end-to-end" },
+    { target: 15, suffix: "+ team", label: "Engineers, scientists, architects" },
+    { target: 5, suffix: "+ awards", label: "Industry recognitions" },
 ];
 
 const negativeSpace = [
