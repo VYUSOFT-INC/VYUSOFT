@@ -29,7 +29,7 @@ const STATS: Stat[] = [
         value: "92%",
         label: "Client retention beyond the initial brief",
         caption:
-            "Renewal and expansion rate measured across engagements completed 2022 – 2025.",
+            "Renewal and expansion rate measured across engagements completed 2024 – 2025.",
     },
     {
         value: "−30%",
@@ -38,13 +38,13 @@ const STATS: Stat[] = [
             "Average schedule variance against original scope, tracked across the 2024 – 2025 portfolio.",
     },
     {
-        value: "500+",
+        value: "50+",
         label: "Engagements shipped to production",
         caption:
             "Distinct delivery engagements taken from kick-off through go-live since 2024.",
     },
     {
-        value: "15+",
+        value: "2+",
         label: "Years operating across regulated sectors",
         caption:
             "Continuous operating history. No pivots, no rebrands, no restarts.",
