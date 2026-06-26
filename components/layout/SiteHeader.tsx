@@ -48,6 +48,7 @@ const PANEL_INNER_STYLE: React.CSSProperties = {
 
 export function SiteHeader() {
     const [hidden, setHidden] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const [openMenu, setOpenMenu] = useState<MenuKey>(null);
     /* Logo theme — driven by the section currently overlapping the header.
        Sections that opt in declare `data-theme="dark"` or `data-theme="light"`.
@@ -66,6 +67,7 @@ export function SiteHeader() {
             frame = requestAnimationFrame(() => {
                 const currentY = window.scrollY;
                 const delta = currentY - lastScrollY.current;
+                setScrolled(currentY > 16);
                 if (currentY < 16) {
                     setHidden(false);
                 } else if (delta > 1 && !openMenu) {
@@ -172,7 +174,7 @@ export function SiteHeader() {
 
     return (
         <header
-            className={`site-header${hidden ? " site-header--hidden" : ""}${openMenu ? " site-header--menu-open" : ""}`}
+            className={`site-header${hidden ? " site-header--hidden" : ""}${scrolled ? " site-header--scrolled" : ""}${openMenu ? " site-header--menu-open" : ""}`}
             aria-label="Primary"
         >
             <div
