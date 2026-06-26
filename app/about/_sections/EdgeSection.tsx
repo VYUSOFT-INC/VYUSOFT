@@ -39,12 +39,12 @@ export function EdgeSection() {
                     <div
                         style={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                            gap: "16px 48px",
+                            gridTemplateColumns: "56px 1fr 1.2fr",
+                            gap: "0 32px",
                             alignItems: "end",
                         }}
                     >
-                        <div>
+                        <div style={{ gridColumn: "1 / 3" }}>
                             <ScrollReveal>
                                 <p className="inner-section-eyebrow">THE EDGE</p>
                             </ScrollReveal>

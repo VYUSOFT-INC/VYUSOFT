@@ -82,10 +82,9 @@ export default function AboutPage() {
                 heroImage="/sections/about/about.png"
                 heroImagePosition="75% center"
                 marginalia={[
-                    "33°13'N 97°08'W",
-                    "EST. 2010",
-                    "DENTON, TEXAS",
-                    "STUDIO PROFILE · VOL. 2026",
+                    "32°51'N 96°56'W",
+                    "EST. 2024",
+                    "IRVING, TEXAS",
                 ]}
             />
 

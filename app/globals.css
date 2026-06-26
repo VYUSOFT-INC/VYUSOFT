@@ -44,6 +44,15 @@ html {
     -moz-osx-font-smoothing: grayscale;
     /* `scroll-behavior: smooth` removed — Lenis (LenisProvider.tsx) drives
        smooth scroll programmatically. Having both causes jank. */
+    /* Offset anchor / programmatic scroll-into-view by the fixed nav height
+       so sections never snap behind the header. */
+    scroll-padding-top: 90px;
+}
+
+/* Every section gets scroll-margin-top so in-page anchor links and
+   programmatic scrollIntoView() always land clear of the fixed nav. */
+section {
+    scroll-margin-top: 90px;
 }
 
 /* Lenis: required so the smooth-scroll loop can transform the html element
@@ -1851,12 +1860,12 @@ body:has(.hero71-wrapper) {
     /* Top padding clears the fixed SiteHeader; bottom padding lets the
        hero-grid breathe. Single 1fr row now that the inline HeroNav is
        gone (moved to global SiteHeader). */
-    padding: 112px 32px 64px;
+    padding: 140px 32px 64px;
     display: grid;
     grid-template-rows: 1fr;
 }
 @media (min-width: 1024px) {
-    .hero-dark-content { padding: 128px 64px 80px; }
+    .hero-dark-content { padding: 160px 64px 80px; }
 }
 
 /* Top nav */
@@ -2082,7 +2091,7 @@ body:has(.hero71-wrapper) {
 .services-intro {
     position: relative;
     width: 100%;
-    padding: 80px 0;
+    padding: 96px 0;
     color: oklch(99% 0.005 80);
     /* Transparent — backdrop is from <DarkAtmosphere> parent */
     background: transparent;
@@ -2249,12 +2258,12 @@ body:has(.hero71-wrapper) {
     /* Fixed shape so the card never changes proportions between views.
        The practices list scrolls inside its own region (.sd-table-scroll),
        so switching groups / expanding a practice never resizes the card. */
-    aspect-ratio: 1.6 / 1;
+    aspect-ratio: 1.9 / 1;
     background: #0a0d12;
     color: oklch(99% 0.005 80);
     font-family: var(--font-sans);
     user-select: none;
-    min-height: 540px;
+    min-height: 560px;
     position: relative;
 }
 @media (max-width: 1024px) {
@@ -2288,7 +2297,12 @@ body:has(.hero71-wrapper) {
     flex-direction: column;
     gap: 4px;
 }
-.sd-side-nav--secondary { opacity: 0.65; }
+.sd-side-nav--secondary {
+    opacity: 0.65;
+    border-top: 1px solid oklch(99% 0.005 80 / 0.08);
+    padding-top: 12px;
+    margin-top: 4px;
+}
 .sd-side-spacer { flex: 1; }
 
 .sd-side-item {
@@ -2357,6 +2371,8 @@ body:has(.hero71-wrapper) {
 
 /* ── Main column ── */
 .sd-main {
+    grid-column: 2;
+    grid-row: 1 / 2;
     background: #0e1218;
     padding: 24px 28px 22px;
     display: flex;
@@ -2862,6 +2878,7 @@ body:has(.hero71-wrapper) {
 
 /* ── Right rail ── */
 .sd-rail {
+    grid-column: 3;
     grid-row: 1 / 3;
     background: #0a0d12;
     padding: 22px 20px;
@@ -3398,7 +3415,7 @@ body:has(.hero71-wrapper) {
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: 52px 0;
+    padding: 96px 0;
     color: oklch(99% 0.005 80);
     background: transparent;
     border-top: 1px solid oklch(99% 0.005 80 / 0.12);
@@ -3519,7 +3536,7 @@ body:has(.hero71-wrapper) {
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 80px 0;
+    padding: 96px 0;
 }
 .pillars-content {
     width: 100%;
@@ -6462,7 +6479,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     position: relative;
     width: 100%;
     color: oklch(99% 0.005 80);
-    padding: 80px 0;
+    padding: 96px 0;
     background: transparent;
     /* `overflow: clip` (not hidden) — clip prevents bleed but does NOT
        create a scrolling context, so position: sticky on the left
@@ -6668,7 +6685,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     position: relative;
     width: 100%;
     color: oklch(99% 0.005 80);
-    padding: 80px 0 80px;
+    padding: 96px 0 96px;
     background: transparent;
     /* `overflow: clip` so sticky-left works. See note in .products-section. */
     overflow: clip;
@@ -6910,7 +6927,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 80px 0;
+    padding: 96px 0;
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
 }
 .testimonials-content {
@@ -7015,7 +7032,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 80px 0;
+    padding: 96px 0;
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
 }
 .industries-grid-content {
@@ -7179,7 +7196,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     position: relative;
     width: 100%;
     color: oklch(99% 0.005 80);
-    padding: 0;
+    padding: 96px 0 0;
     background: transparent;
     overflow: hidden;
     display: flex;
@@ -7422,7 +7439,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 50;
     padding: 18px 32px 0;
     pointer-events: none;
-    transition: transform 320ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition: transform 160ms cubic-bezier(0.32, 0.72, 0, 1);
     will-change: transform;
 }
 @media (min-width: 1024px) {
@@ -7443,6 +7460,8 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .site-header-brand {
     display: inline-flex;
     align-items: center;
+    cursor: pointer;
+    user-select: none;
 }
 .site-header-logo {
     height: 40px;

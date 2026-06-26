@@ -14,9 +14,6 @@ import {
     Building2,
     TrendingUp,
     Wrench,
-    User,
-    Settings,
-    HelpCircle,
 } from "lucide-react";
 import { servicesByGroup } from "@/lib/nav";
 import { allServices, getServiceBySlug, type Service } from "@/lib/services";
@@ -69,11 +66,6 @@ const GROUP_DESC: Record<string, string> = {
         "Backup, payments, QA, and the systems that keep delivery sustainable.",
 };
 
-const SIDEBAR_HINTS: Record<string, string> = {
-    Profile: "Coming soon",
-    Settings: "Coming soon",
-    Support: "Coming soon",
-};
 
 /* ── Donut geometry — 5 equal segments (one per capability group). ─────── */
 function arcPoint(cx: number, cy: number, r: number, deg: number): [number, number] {
@@ -212,12 +204,6 @@ export function ServicesDashboard() {
 
                 <div className="sd-side-spacer" />
 
-                <nav className="sd-side-nav sd-side-nav--secondary">
-                    <SideItem icon={<User />} label="Profile" muted />
-                    <SideItem icon={<Settings />} label="Settings" muted />
-                    <SideItem icon={<HelpCircle />} label="Support" muted />
-                </nav>
-
                 <Link href="/services" className="sd-side-promo">
                     <Sparkles className="sd-side-promo-icon" />
                     <div>
@@ -335,7 +321,7 @@ export function ServicesDashboard() {
                         <span />
                     </div>
 
-                    <div className="sd-table-scroll" key={searching ? "s" : group.title}>
+                    <div className="sd-table-scroll" key={searching ? "s" : group.title} data-lenis-prevent>
                         {visible.length === 0 ? (
                             <p className="sd-row-empty">
                                 No practices match &ldquo;{searchQuery}&rdquo;.
@@ -456,14 +442,14 @@ function SideItem({
                 className={className}
                 onClick={onSelect}
                 aria-pressed={active}
-                title={SIDEBAR_HINTS[label] ?? label}
+                title={label}
             >
                 {inner}
             </button>
         );
     }
     return (
-        <div className={className} title={SIDEBAR_HINTS[label] ?? label}>
+        <div className={className} title={label}>
             {inner}
         </div>
     );

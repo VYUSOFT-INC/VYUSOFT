@@ -28,9 +28,7 @@ export function Hero() {
                             <br />
                             Technology Partner
                             <br />
-                            for
-                            <br />
-                            Digital
+                            for Digital
                             <br />
                             Transformation.
                         </h1>

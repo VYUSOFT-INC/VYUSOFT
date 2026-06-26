@@ -66,7 +66,7 @@ export function SiteHeader() {
             frame = requestAnimationFrame(() => {
                 const currentY = window.scrollY;
                 const delta = currentY - lastScrollY.current;
-                if (currentY < 80) {
+                if (currentY < 16) {
                     setHidden(false);
                 } else if (delta > 1 && !openMenu) {
                     setHidden(true);
