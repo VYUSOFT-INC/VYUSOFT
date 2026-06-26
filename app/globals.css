@@ -229,11 +229,11 @@ body::-webkit-scrollbar { display: none; }
 
 /* ── Section rhythm ── */
 .section {
-    padding-top: 96px;
-    padding-bottom: 96px;
+    padding-top: 72px;
+    padding-bottom: 72px;
 }
 @media (min-width: 1024px) {
-    .section { padding-top: 144px; padding-bottom: 144px; }
+    .section { padding-top: 112px; padding-bottom: 112px; }
 }
 .section-tight {
     padding-top: 72px;
@@ -1865,12 +1865,12 @@ body:has(.hero71-wrapper) {
     /* Top padding clears the fixed SiteHeader; bottom padding lets the
        hero-grid breathe. Single 1fr row now that the inline HeroNav is
        gone (moved to global SiteHeader). */
-    padding: 140px 32px 64px;
+    padding: 100px 32px 56px;
     display: grid;
     grid-template-rows: 1fr;
 }
 @media (min-width: 1024px) {
-    .hero-dark-content { padding: 160px 64px 80px; }
+    .hero-dark-content { padding: 120px 64px 72px; }
 }
 
 /* Top nav */
@@ -2096,7 +2096,7 @@ body:has(.hero71-wrapper) {
 .services-intro {
     position: relative;
     width: 100%;
-    padding: 96px 0;
+    padding: 72px 0;
     color: oklch(99% 0.005 80);
     /* Transparent — backdrop is from <DarkAtmosphere> parent */
     background: transparent;
@@ -3420,7 +3420,7 @@ body:has(.hero71-wrapper) {
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: 96px 0;
+    padding: 72px 0;
     color: oklch(99% 0.005 80);
     background: transparent;
     border-top: 1px solid oklch(99% 0.005 80 / 0.12);
@@ -3541,7 +3541,7 @@ body:has(.hero71-wrapper) {
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .pillars-content {
     width: 100%;
@@ -3725,7 +3725,7 @@ body:has(.hero71-wrapper) {
    TIMELINE — vertical milestone list. Year (Fraunces italic) on the left,
    event title in the middle, mono detail on the right. Hairline dividers.
    ───────────────────────────────────────────────────────────────────────── */
-.timeline { padding: 96px 0; }
+.timeline { padding: 72px 0; }
 .timeline-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -3799,7 +3799,7 @@ body:has(.hero71-wrapper) {
 /* ─────────────────────────────────────────────────────────────────────────
    CONTACT — white inner-light section with form (left) + info (right)
    ───────────────────────────────────────────────────────────────────────── */
-.contact-section { padding: 96px 0; }
+.contact-section { padding: 72px 0; }
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -3921,7 +3921,7 @@ body:has(.hero71-wrapper) {
     }
 }
 
-.research-vision { padding: 96px 0; }
+.research-vision { padding: 72px 0; }
 .research-vision-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -3964,7 +3964,7 @@ body:has(.hero71-wrapper) {
 /* ─────────────────────────────────────────────────────────────────────────
    LEGAL (Privacy / Terms) — long-form numbered editorial sections
    ───────────────────────────────────────────────────────────────────────── */
-.legal-section { padding: 96px 0; }
+.legal-section { padding: 72px 0; }
 .legal-list {
     display: flex;
     flex-direction: column;
@@ -4169,7 +4169,7 @@ body:has(.hero71-wrapper) {
 .svcd-hero-index-num { font-family: var(--font-mono); font-size: 0.6875rem; color: oklch(99% 0.005 80 / 0.5); }
 .svcd-hero-index-title { font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em; color: oklch(99% 0.005 80 / 0.92); line-height: 1.3; }
 
-.svcd-caps { position: relative; z-index: 1; background: var(--color-paper); color: var(--color-ink); padding: 96px 0; }
+.svcd-caps { position: relative; z-index: 1; background: var(--color-paper); color: var(--color-ink); padding: 72px 0; }
 .svcd-caps-inner { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
 @media (min-width: 1024px) { .svcd-caps-inner { padding: 0 64px; } }
 .svcd-caps-head { max-width: 62ch; margin-bottom: 52px; }
@@ -4219,7 +4219,7 @@ body:has(.hero71-wrapper) {
 /* ─────────────────────────────────────────────────────────────────────────
    SERVICE TOC LAYOUT — sticky left-rail + scrolling feature articles
    ───────────────────────────────────────────────────────────────────────── */
-.service-toc { padding: 96px 0; }
+.service-toc { padding: 72px 0; }
 .service-toc-header {
     margin-bottom: 80px;
     max-width: 720px;
@@ -4524,7 +4524,7 @@ body:has(.hero71-wrapper) {
     z-index: 1;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .sector-report-inner {
     max-width: 1400px;
@@ -5167,7 +5167,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ── Development family: the artifact ledger — deliverables as paper
      sheets on the desk, not generic cards. Left rail head + stepped
      document stack. */
-.phase-art { padding: 96px 0; }
+.phase-art { padding: 72px 0; }
 .phase-art-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -5376,7 +5376,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .sector-reality {
     position: relative;
     overflow: hidden;
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .sector-reality-haze {
     position: absolute;
@@ -5434,7 +5434,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Playbook — deployment rows ── */
-.sector-playbook { padding: 96px 0; }
+.sector-playbook { padding: 72px 0; }
 .sector-playbook-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -5536,7 +5536,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Framework stamps ── */
-.sector-frameworks { padding: 96px 0; }
+.sector-frameworks { padding: 72px 0; }
 .sector-frameworks-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -5614,7 +5614,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Findings — editorial report ── */
-.sector-findings { padding: 96px 0; }
+.sector-findings { padding: 72px 0; }
 .sector-findings-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -5687,7 +5687,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Adjacent sectors — wayfinding ── */
-.sector-adjacent { padding: 96px 0; }
+.sector-adjacent { padding: 72px 0; }
 .sector-adjacent-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -5753,13 +5753,13 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     .sector-findings-inner,
     .sector-adjacent-inner { padding: 0 32px; }
     .sector-hero-meta { grid-template-columns: 1fr; gap: 18px; max-width: none; }
-    .sector-reality { padding: 96px 0; }
+    .sector-reality { padding: 72px 0; }
     .sector-reality-conditions { grid-template-columns: 1fr; gap: 24px; margin-top: 48px; }
     .sector-playbook { padding: 80px 0; }
     .sector-playbook-head { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 36px; }
     .sector-play-row { grid-template-columns: 44px 1fr; }
     .sector-play-arrow { display: none; }
-    .sector-frameworks { padding: 96px 0; }
+    .sector-frameworks { padding: 72px 0; }
     .sector-stamps { gap: 16px; margin-top: 44px; }
     .sector-stamp { transform: none !important; }
     .sector-findings { padding: 80px 0; }
@@ -5871,7 +5871,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .process-section-content {
     width: 100%;
@@ -6488,7 +6488,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     position: relative;
     width: 100%;
     color: oklch(99% 0.005 80);
-    padding: 96px 0;
+    padding: 72px 0;
     background: transparent;
     /* `overflow: clip` (not hidden) — clip prevents bleed but does NOT
        create a scrolling context, so position: sticky on the left
@@ -6694,7 +6694,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     position: relative;
     width: 100%;
     color: oklch(99% 0.005 80);
-    padding: 96px 0 96px;
+    padding: 72px 0 72px;
     background: transparent;
     /* `overflow: clip` so sticky-left works. See note in .products-section. */
     overflow: clip;
@@ -6936,7 +6936,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
 }
 .testimonials-content {
@@ -7041,7 +7041,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
     border-top: 1px solid oklch(20% 0.015 270 / 0.08);
 }
 .industries-grid-content {
@@ -8233,12 +8233,12 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     min-height: 92vh;
     color: oklch(99% 0.005 80);
     background: transparent;
-    padding: 140px 0 96px;
+    padding: 100px 0 72px;
     display: flex;
     align-items: center;
 }
 @media (min-width: 1024px) {
-    .page-hero { min-height: 100vh; padding: 160px 0 96px; }
+    .page-hero { min-height: 100vh; padding: 120px 0 72px; }
 }
 .page-hero-inner {
     width: 100%;
@@ -8400,7 +8400,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     color: oklch(99% 0.005 80);
     background: transparent;
-    padding: 96px 0;
+    padding: 72px 0;
 }
 /* Opaque white lid — for long-form content sections that need legibility. */
 .inner-light {
@@ -8409,7 +8409,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     width: 100%;
     color: var(--color-ink);
     background: var(--color-paper);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .inner-section-inner {
     width: 100%;
@@ -8570,7 +8570,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
    ABOUT — page-specific compositions
    ───────────────────────────────────────────────────────────────────────── */
 
-.about-purpose { padding: 96px 0; }
+.about-purpose { padding: 72px 0; }
 
 /* Foundation — sticky-scroll grid. Headcol pins while statements scroll. */
 .about-purpose-grid {
@@ -8691,7 +8691,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ── About: The Long View — typographic numbers, not metric cards.
    Each figure is a Fraunces-italic display moment + small label beneath,
    stacked vertically with hairline dividers. Editorial restraint. */
-.about-longview { padding: 96px 0; }
+.about-longview { padding: 72px 0; }
 .about-longview-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -8784,7 +8784,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ── About: Negative Space — anti-positioning, white panel with declarative
    hairline rows. Each "Not X" reads like an editorial refusal headline,
    the body explains why. */
-.about-negative { padding: 96px 0; }
+.about-negative { padding: 72px 0; }
 .about-negative-header {
     display: flex;
     flex-direction: column;
@@ -8930,7 +8930,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    OUTCOMES STRIP — three-figure stat row, dark transparent
    ───────────────────────────────────────────────────────────────────────── */
-.outcomes-strip { padding: 96px 0; }
+.outcomes-strip { padding: 72px 0; }
 .outcomes-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -9016,7 +9016,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    STACK GRID — white opaque section, tag-cloud of tech pills
    ───────────────────────────────────────────────────────────────────────── */
-.stack-grid { padding: 96px 0; }
+.stack-grid { padding: 72px 0; }
 .stack-grid-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -9065,7 +9065,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    REGULATORY GRID — dark transparent compliance card grid
    ───────────────────────────────────────────────────────────────────────── */
-.regulatory-grid { padding: 96px 0; }
+.regulatory-grid { padding: 72px 0; }
 .regulatory-grid-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -9138,7 +9138,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    ARTIFACTS GRID — white opaque card grid (development phases)
    ───────────────────────────────────────────────────────────────────────── */
-.artifacts-grid { padding: 96px 0; }
+.artifacts-grid { padding: 72px 0; }
 .artifacts-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -9222,7 +9222,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    RELATED CARDS — dark transparent cross-link cards
    ───────────────────────────────────────────────────────────────────────── */
-.related-cards { padding: 96px 0; }
+.related-cards { padding: 72px 0; }
 .related-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -9309,7 +9309,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    PHASE PROFILE — three meta facts on development [slug] pages
    ───────────────────────────────────────────────────────────────────────── */
-.phase-profile { padding: 96px 0; }
+.phase-profile { padding: 72px 0; }
 .phase-profile-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -9389,7 +9389,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .product-card--link:hover .product-card-cue { gap: 11px; }
 
 /* /products index grid */
-.products-index { padding: 96px 0; }
+.products-index { padding: 72px 0; }
 .products-index-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -9981,7 +9981,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Product status band (pre-launch apps, dark transparent) ── */
-.product-status { padding: 96px 0; }
+.product-status { padding: 72px 0; }
 .product-status-inner { max-width: 60ch; }
 .product-status-headline { margin-top: 20px; }
 .product-status-body {
@@ -9995,7 +9995,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
    SERVICES INDEX — five capability groups, five distinct layouts.
    Graphic & typographic only (no imagery).
    ───────────────────────────────────────────────────────────────────────── */
-.svc-sec { position: relative; z-index: 1; padding: 96px 0; }
+.svc-sec { position: relative; z-index: 1; padding: 72px 0; }
 .svc-sec[data-theme="light"] { background: var(--color-paper); color: var(--color-ink); }
 .svc-sec[data-theme="dark"] { background: transparent; color: oklch(99% 0.005 80); }
 
@@ -10290,7 +10290,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 /* ─────────────────────────────────────────────────────────────────────────
    PRODUCTS INDEX — one generous showcase per product (alternating).
    ───────────────────────────────────────────────────────────────────────── */
-.prod-show { position: relative; z-index: 1; padding: 96px 0; }
+.prod-show { position: relative; z-index: 1; padding: 72px 0; }
 .prod-show[data-theme="light"] { background: var(--color-paper); color: var(--color-ink); }
 .prod-show[data-theme="dark"] { background: transparent; color: oklch(99% 0.005 80); }
 .prod-show-inner {
@@ -10761,7 +10761,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 1;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .sector-sheets-inner {
     max-width: 1400px;
@@ -10973,7 +10973,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Industries: Why VyuSoft — single-column editorial manifest ── */
-.sector-why { padding: 96px 0; }
+.sector-why { padding: 72px 0; }
 .sector-why-inner {
     max-width: 1100px;
     margin: 0 auto;
@@ -11029,7 +11029,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── Industries: adjacent verticals — wayfinding strip ── */
-.sector-adjacent { padding: 96px 0; }
+.sector-adjacent { padding: 72px 0; }
 .sector-adjacent-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -11234,7 +11234,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── 2. Challenge (cream) ─────────────────────────────────────────── */
-.ind-challenge { padding: 96px 0; }
+.ind-challenge { padding: 72px 0; }
 .ind-challenge-inner {
     max-width: 1400px;
     margin: 0 auto;
@@ -11319,7 +11319,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 1;
     background: oklch(15% 0.015 270);
     color: oklch(99% 0.005 80);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .ind-ledger + .closing-cta { padding: 40px 0 80px; }
 .ind-ledger-inner {
@@ -11442,7 +11442,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 /* ── (legacy dark-solutions rules retained below; no longer mounted ─ */
-.ind-solutions { padding: 96px 0; }
+.ind-solutions { padding: 72px 0; }
 .ind-solutions + .closing-cta { padding: 40px 0 80px; }
 .ind-solutions-inner {
     max-width: 1400px;
@@ -11987,7 +11987,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 1;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .svp-spec-inner {
     max-width: 1400px;
@@ -12105,7 +12105,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 1;
     background: oklch(13% 0.018 270);
     color: oklch(99% 0.005 80);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .svp-spine-inner {
     max-width: 1400px;
@@ -12215,7 +12215,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     z-index: 1;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 96px 0;
+    padding: 72px 0;
 }
 .svp-stack-inner {
     max-width: 1400px;
