@@ -6,8 +6,8 @@ import { slowBurn } from "./motion";
 
 const MILESTONES = [
     {
-        year: "2010",
-        event: "Founded in Denton, Texas.",
+        year: "2024",
+        event: "Founded in Irving, Texas.",
         detail:
             "Two engineers, one operating philosophy: ship enterprise systems that survive the second year.",
     },
@@ -70,7 +70,7 @@ export function TimelineSection() {
                     <ScrollReveal delay={0.16}>
                         <p className="inner-section-body timeline-lede">
                             No pivots, no rebrands, no restarts. The studio has been
-                            shipping enterprise software since 2010, compounding one
+                            shipping enterprise software since 2024, compounding one
                             engagement at a time.
                         </p>
                     </ScrollReveal>

@@ -41,7 +41,7 @@ const STATS: Stat[] = [
         value: "500+",
         label: "Engagements shipped to production",
         caption:
-            "Distinct delivery engagements taken from kick-off through go-live since 2010.",
+            "Distinct delivery engagements taken from kick-off through go-live since 2024.",
     },
     {
         value: "15+",
