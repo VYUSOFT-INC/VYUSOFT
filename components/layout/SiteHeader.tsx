@@ -198,7 +198,7 @@ export function SiteHeader() {
                         className="site-header-logo"
                         priority
                         style={{
-                            opacity: logoTheme === "dark" ? 1 : 0,
+                            opacity: (scrolled || logoTheme === "dark") ? 1 : 0,
                             transition: "opacity 280ms cubic-bezier(0.32, 0.72, 0, 1)",
                         }}
                     />
@@ -214,7 +214,7 @@ export function SiteHeader() {
                             position: "absolute",
                             top: 0,
                             left: 0,
-                            opacity: logoTheme === "light" ? 1 : 0,
+                            opacity: (!scrolled && logoTheme === "light") ? 1 : 0,
                             transition: "opacity 280ms cubic-bezier(0.32, 0.72, 0, 1)",
                         }}
                     />
