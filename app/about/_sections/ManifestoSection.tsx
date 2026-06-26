@@ -68,7 +68,7 @@ export function ManifestoSection() {
                         delay: 0.9,
                     }}
                 >
-                    VyuSoft operating principle &middot; Active since 2014
+                    VyuSoft operating principle &middot; Active since 2024
                 </motion.p>
             </div>
         </section>
