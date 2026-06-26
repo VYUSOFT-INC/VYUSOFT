@@ -8131,20 +8131,20 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .site-footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     max-width: 360px;
 }
 .site-footer-logo-img {
     height: 40px;
     width: auto;
     object-fit: contain;
-    margin: 0 0 12px;
+    margin: 0 0 8px;
 }
 .site-footer-get-in-touch {
     font-size: 1.125rem;
     font-weight: 700;
     color: oklch(99% 0.005 80);
-    margin: 4px 0 4px;
+    margin: 0 0 2px;
 }
 .site-footer-email {
     color: oklch(99% 0.005 80 / 0.78);
@@ -8154,9 +8154,9 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .site-footer-email:hover { color: oklch(99% 0.005 80); }
 .site-footer-address {
     color: oklch(99% 0.005 80 / 0.62);
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
-    margin: 12px 0 0;
+    margin: 0;
 }
 .site-footer-cols {
     display: grid;
