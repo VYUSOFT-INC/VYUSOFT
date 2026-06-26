@@ -70,6 +70,10 @@ html.lenis, html.lenis body {
     overflow: hidden;
 }
 
+main#main {
+    padding-top: 75px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -1661,6 +1665,7 @@ body:has(.hero71-wrapper) {
     position: relative;
     width: 100%;
     min-height: 100vh;
+    margin-top: -75px;
     overflow: hidden;
     background: transparent;
     color: oklch(99% 0.005 80);
@@ -4029,7 +4034,7 @@ body:has(.hero71-wrapper) {
     z-index: 1;
     background: var(--color-paper);
     color: var(--color-ink);
-    padding: 150px 0 96px;
+    padding: 75px 0 96px;
 }
 /* Match the site grid (1480 + padding) and left-align the document, so it
    starts at the same left edge as the header/logo instead of floating
@@ -4072,7 +4077,7 @@ body:has(.hero71-wrapper) {
    SERVICE DETAIL — redesigned [slug] layout (hero + capability index +
    editorial capabilities). Graphic/typographic only.
    ───────────────────────────────────────────────────────────────────────── */
-.svcd-hero { position: relative; z-index: 1; padding: 150px 0 96px; color: oklch(99% 0.005 80); }
+.svcd-hero { position: relative; z-index: 1; padding: 75px 0 96px; color: oklch(99% 0.005 80); }
 .svcd-hero-inner {
     width: 100%;
     max-width: 1400px;
@@ -9391,7 +9396,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 .product-hero {
     position: relative;
     z-index: 1;
-    padding: 150px 0 96px;
+    padding: 75px 0 96px;
     color: oklch(99% 0.005 80);
 }
 .product-hero-inner {
