@@ -53,7 +53,7 @@ const sections: Section[] = [
             { p: `Vyusoft collects personal information such as name, phone number, email, and employment-related details to support communication, onboarding, compliance, and service updates.` },
             { p: `Your information is used solely for operational and business purposes. Vyusoft does not sell or share personal data for marketing purposes. Data may be shared only with trusted service providers for compliance and operational needs.` },
             { p: `By opting into SMS communications, you consent to receive text messages as described. You may opt out at any time by replying STOP. Vyusoft takes reasonable measures to protect your data and retains it only as long as necessary to meet business and legal requirements.` },
-            { p: `For privacy-related questions, contact us at support@vyusoft.com or 940-977-9963.` },
+            { p: `For privacy-related questions, contact us at support@vyusoft.com or +1 (940) 977-9963.` },
         ],
     },
     {
@@ -141,7 +141,7 @@ const sections: Section[] = [
         no: "12",
         title: "Your Choices",
         blocks: [
-            { p: `You have the right to access, correct, or delete your information. If you have any concerns or questions about your data, please contact us at 940-977-9963, INFO@VYUSOFT.COM and 414 West Parkway St, Denton, TX, 76201.` },
+            { p: `You have the right to access, correct, or delete your information. If you have any concerns or questions about your data, please contact us at +1 (940) 977-9963, sales@vyusoft.com and 511 E John Carpenter Fwy, STE 500, Irving, Texas, 75062, USA.` },
         ],
     },
     {

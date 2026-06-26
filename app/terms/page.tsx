@@ -72,7 +72,7 @@ const sections: Section[] = [
             { p: `Vyusoft provides technology and business support services, including employment, onboarding, compliance, and service-related notifications. By opting into our messaging program, you consent to receive SMS messages related to these services. Message frequency may vary (approximately 1–1500 messages).` },
             { p: `Message and data rates may apply based on your mobile carrier. You may opt out at any time by replying STOP, or request assistance by replying HELP.` },
             { p: `Vyusoft does not solicit donations via SMS. All content and materials are protected by intellectual property laws. By submitting information, you grant Vyusoft permission to use it for business and operational purposes. Vyusoft makes no guarantees regarding the accuracy of content.` },
-            { p: `For questions, contact us at 940-977-9963 or support@vyusoft.com.` },
+            { p: `For questions, contact us at +1 (940) 977-9963 or support@vyusoft.com.` },
         ],
     },
     {
