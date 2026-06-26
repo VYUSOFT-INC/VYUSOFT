@@ -84,7 +84,7 @@ export function SiteFooter() {
                             Instagram
                         </Link>
                         <Link
-                            href="https://linkedin.com"
+                            href="https://www.linkedin.com/company/vyusoft"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="site-footer-link"

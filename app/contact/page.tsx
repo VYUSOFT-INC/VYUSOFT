@@ -56,32 +56,30 @@ export default function ContactPage() {
                         </div>
 
                         <aside className="contact-info-col" aria-label="Direct contact lines">
-                            <p className="inner-section-eyebrow contact-info-eyebrow">
-                                DIRECT LINES
-                            </p>
+                            <h3 className="contact-info-heading">Get In Touch</h3>
                             <ul className="contact-info-list">
                                 <InfoRow
                                     icon={<Mail strokeWidth={1.5} />}
-                                    label="EMAIL"
+                                    label="Email"
                                     value="sales@vyusoft.com"
                                     href="mailto:sales@vyusoft.com"
                                 />
                                 <InfoRow
                                     icon={<Phone strokeWidth={1.5} />}
-                                    label="TELEPHONE"
-                                    value="+1 (469) 213-2369"
+                                    label="TelePhone"
+                                    value="+1 (469)-213-2369"
                                     href="tel:+14692132369"
                                 />
                                 <InfoRow
                                     icon={<Phone strokeWidth={1.5} />}
-                                    label="PHONE"
+                                    label="Phone"
                                     value="+1 (940) 977-9963"
                                     href="tel:+19409779963"
                                 />
                                 <InfoRow
                                     icon={<MapPin strokeWidth={1.5} />}
-                                    label="OFFICE"
-                                    value="511 E John Carpenter Fwy, STE 500, Irving, TX 75062"
+                                    label="Address"
+                                    value="511 E John Carpenter Fwy, STE 500, Irving, Texas, 75062, USA."
                                 />
                             </ul>
 
@@ -120,10 +118,9 @@ function InfoRow({
             <span className="contact-info-icon" aria-hidden="true">
                 {icon}
             </span>
-            <div className="contact-info-text">
-                <span className="contact-info-row-label">{label}</span>
-                <span className="contact-info-row-value">{value}</span>
-            </div>
+            <span className="contact-info-row-value">
+                <strong className="contact-info-row-label">{label}: </strong>{value}
+            </span>
         </div>
     );
     return <li>{href ? <a href={href} className="contact-info-link">{inner}</a> : inner}</li>;
