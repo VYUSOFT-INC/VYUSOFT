@@ -8140,6 +8140,12 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     object-fit: contain;
     margin: 0 0 12px;
 }
+.site-footer-get-in-touch {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: oklch(99% 0.005 80);
+    margin: 4px 0 4px;
+}
 .site-footer-email {
     color: oklch(99% 0.005 80 / 0.78);
     font-size: 0.9375rem;

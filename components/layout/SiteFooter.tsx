@@ -22,31 +22,21 @@ export function SiteFooter() {
                             alt="VyuSoft"
                             width={200}
                             height={40}
-                            style={{ height: 40, width: "auto", objectFit: "contain", marginBottom: 12 }}
+                            style={{ height: 40, width: "auto", objectFit: "contain", marginBottom: 16 }}
                         />
                     </Link>
-                    <a
-                        href="mailto:sales@vyusoft.com"
-                        className="site-footer-email"
-                    >
-                        sales@vyusoft.com
+                    <p className="site-footer-get-in-touch">Get In Touch</p>
+                    <a href="mailto:sales@vyusoft.com" className="site-footer-email">
+                        <strong>Email:</strong> sales@vyusoft.com
                     </a>
-                    <a
-                        href="tel:+14692132369"
-                        className="site-footer-email"
-                    >
-                        +1 (469)-213-2369
+                    <a href="tel:+14692132369" className="site-footer-email">
+                        <strong>TelePhone:</strong> +1 (469)-213-2369
                     </a>
-                    <a
-                        href="tel:+19409779963"
-                        className="site-footer-email"
-                    >
-                        +1 (940) 977-9963
+                    <a href="tel:+19409779963" className="site-footer-email">
+                        <strong>Phone:</strong> +1 (940) 977-9963
                     </a>
                     <p className="site-footer-address">
-                        511 E John Carpenter Fwy, STE 500,
-                        <br />
-                        Irving, Texas, 75062, USA
+                        <strong>Address:</strong> 511 E John Carpenter Fwy, STE 500, Irving, Texas, 75062, USA.
                     </p>
                 </div>
 
