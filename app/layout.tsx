@@ -29,7 +29,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
     title: {
-        default: "VyuSoft, hybrid technology engineering",
+        default: "VyuSoft",
         template: "%s · VyuSoft",
     },
     description:
