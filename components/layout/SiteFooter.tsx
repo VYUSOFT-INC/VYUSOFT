@@ -26,8 +26,8 @@ export function SiteFooter() {
                         />
                     </Link>
                     <p className="site-footer-get-in-touch">Get In Touch</p>
-                    <a href="mailto:sales@vyusoft.com" className="site-footer-email">
-                        <strong>Email:</strong> sales@vyusoft.com
+                    <a href="mailto:business@vyusoft.com" className="site-footer-email">
+                        <strong>Email:</strong> business@vyusoft.com
                     </a>
                     <a href="tel:+14692132369" className="site-footer-email">
                         <strong>TelePhone:</strong> +1 (469)-213-2369

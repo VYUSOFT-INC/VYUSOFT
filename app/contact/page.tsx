@@ -29,7 +29,7 @@ export default function ContactPage() {
                 heroImagePosition="75% center"
                 marginalia={[
                     "RESPONSE · ONE BUSINESS DAY",
-                    "SALES@VYUSOFT.COM",
+                    "BUSINESS@VYUSOFT.COM",
                     "+1 (469) 213-2369",
                 ]}
             />
@@ -61,8 +61,8 @@ export default function ContactPage() {
                                 <InfoRow
                                     icon={<Mail strokeWidth={1.5} />}
                                     label="Email"
-                                    value="sales@vyusoft.com"
-                                    href="mailto:sales@vyusoft.com"
+                                    value="business@vyusoft.com"
+                                    href="mailto:business@vyusoft.com"
                                 />
                                 <InfoRow
                                     icon={<Phone strokeWidth={1.5} />}

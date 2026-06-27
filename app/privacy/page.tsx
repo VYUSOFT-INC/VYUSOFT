@@ -141,7 +141,7 @@ const sections: Section[] = [
         no: "12",
         title: "Your Choices",
         blocks: [
-            { p: `You have the right to access, correct, or delete your information. If you have any concerns or questions about your data, please contact us at +1 (940) 977-9963, sales@vyusoft.com and 511 E John Carpenter Fwy, STE 500, Irving, Texas, 75062, USA.` },
+            { p: `You have the right to access, correct, or delete your information. If you have any concerns or questions about your data, please contact us at +1 (940) 977-9963, business@vyusoft.com and 511 E John Carpenter Fwy, STE 500, Irving, Texas, 75062, USA.` },
         ],
     },
     {

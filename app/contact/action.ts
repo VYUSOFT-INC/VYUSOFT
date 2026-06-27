@@ -44,8 +44,8 @@ ${message}
 
     try {
         await resend.emails.send({
-            from: "VyuSoft Contact <onboarding@resend.dev>",
-            to: ["sales@vyusoft.com"],
+            from: "VyuSoft Contact <business@vyusoft.com>",
+            to: ["business@vyusoft.com"],
             replyTo: email,
             subject: `New dispatch #${ref} — ${firstName} ${lastName}`,
             text: body,
