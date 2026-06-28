@@ -35,8 +35,9 @@ export function ContactForm() {
     const ref = state.ref ?? "";
 
     useEffect(() => {
-        if (state.ok && !sent) setSent(true);
-    }, [state.ok, sent]);
+        if (state.ok) setSent(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state.ok]);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
