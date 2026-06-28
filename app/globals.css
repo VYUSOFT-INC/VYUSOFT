@@ -9793,6 +9793,88 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 @media (max-width: 1024px) {
     .sd-groupchart { gap: 20px; }
 }
+
+/* ── Mobile layout (≤ 768px): sidebar → horizontal tab strip, rail hidden ── */
+@media (max-width: 768px) {
+    /* Sidebar becomes a compact horizontal tab bar */
+    .sd-side {
+        grid-row: auto;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 12px;
+        border-right: none;
+        border-bottom: 1px solid oklch(99% 0.005 80 / 0.07);
+        gap: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        min-height: 48px;
+    }
+    .sd-side::-webkit-scrollbar { display: none; }
+
+    .sd-side-logo,
+    .sd-side-spacer,
+    .sd-side-promo { display: none; }
+
+    .sd-side-nav {
+        flex-direction: row;
+        gap: 2px;
+        padding: 6px 0;
+        flex: 1;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .sd-side-nav::-webkit-scrollbar { display: none; }
+
+    .sd-side-item {
+        flex-direction: row;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.8125rem;
+    }
+
+    /* Hide the right rail entirely on mobile */
+    .sd-rail { display: none; }
+
+    /* Reset explicit grid placement so items stack in 1 column */
+    .sd-main { grid-column: auto; grid-row: auto; padding: 14px 14px 10px; }
+
+    /* Top bar: stack title + actions vertically */
+    .sd-top {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .sd-top-actions {
+        gap: 8px;
+    }
+    .sd-top-search {
+        flex: 1;
+    }
+
+    /* Smaller donut on mobile */
+    .sd-donut { width: 80px; height: 80px; }
+
+    /* Group chart: smaller gap */
+    .sd-groupchart { gap: 12px; padding: 2px 0 8px; }
+
+    .sd-gc-active { font-size: 0.9375rem; }
+    .sd-gc-desc { font-size: 0.75rem; }
+
+    /* Practices scroll area: fixed height so it doesn't grow forever */
+    .sd-table-scroll { max-height: 240px; }
+
+    /* Hide bottom tab strip (it's decorative and takes space) */
+    .sd-bottom-tabs { display: none; }
+
+    /* Reduce table row size slightly */
+    .sd-table--svc .sd-row { padding: 9px 0; }
+    .sd-row-name-text { font-size: 0.75rem; }
+}
+
 .sd-donut { width: 128px; height: 128px; flex-shrink: 0; }
 .sd-donut path { outline: none; }
 .sd-donut-num {
@@ -12312,3 +12394,48 @@ a.sector-ledger-link:hover .sector-ledger-ref {
 }
 
 
+
+/* ── Global mobile spacing overrides (≤ 480px) ───────────────────────────
+   72px vertical padding is designed for desktop — on a 375px phone it
+   wastes too much screen. Cut all section padding to 48px.               */
+@media (max-width: 480px) {
+    .pillars,
+    .why-us,
+    .contact-section,
+    .research-vision,
+    .legal-section,
+    .service-toc,
+    .svcd-caps,
+    .sector-playbook,
+    .sector-frameworks,
+    .sector-findings,
+    .sector-adjacent,
+    .phase-art,
+    .timeline {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .process-bento { padding-top: 48px; padding-bottom: 48px; }
+
+    /* Reduce industries grid spacing */
+    .industries-grid { padding-top: 48px; padding-bottom: 48px; }
+
+    /* Tighten pillars grid row gap on very small screens */
+    .pillars-grid { gap: 24px; }
+
+    /* Tighten process bento card padding */
+    .pb-card { padding: 20px; }
+
+    /* Reduce hero dark content padding (services / about hero) */
+    .hero-dark-content {
+        padding-top: 80px !important;
+        padding-bottom: 40px !important;
+    }
+
+    /* Reduce page-hero padding */
+    .page-hero {
+        padding-top: 80px !important;
+        padding-bottom: 48px !important;
+    }
+}
