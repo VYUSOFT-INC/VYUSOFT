@@ -1,10 +1,18 @@
 "use server";
 
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import nodemailer from "nodemailer";
 
 type FormState = { ok: boolean; error?: string; ref?: string };
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.zoho.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.ZOHO_USER,
+        pass: process.env.ZOHO_PASS,
+    },
+});
 
 export async function sendContactForm(
     _prev: FormState,
@@ -43,16 +51,16 @@ ${message}
 `.trim();
 
     try {
-        await resend.emails.send({
-            from: "VyuSoft Contact <business@vyusoft.com>",
-            to: ["business@vyusoft.com"],
+        await transporter.sendMail({
+            from: `"VyuSoft Contact" <${process.env.ZOHO_USER}>`,
+            to: "business@vyusoft.com",
             replyTo: email,
             subject: `New dispatch #${ref} — ${firstName} ${lastName}`,
             text: body,
         });
     } catch (e) {
-        console.error("Resend error:", e);
-        return { ok: false, error: "Failed to send. Please email us directly." };
+        console.error("Zoho SMTP error:", e);
+        return { ok: false, error: "Failed to send. Please email us directly at business@vyusoft.com." };
     }
 
     return { ok: true, ref };
