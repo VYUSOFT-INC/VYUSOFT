@@ -521,20 +521,9 @@ function MobileSection({
                 <span>{label}</span>
                 <ChevronDown className="mobile-nav-chevron" strokeWidth={2} />
             </button>
-            <AnimatePresence initial={false}>
-                {open && (
-                    <motion.div
-                        className="mobile-nav-sub"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: slowBurn }}
-                        style={{ overflow: "hidden" }}
-                    >
-                        <div className="mobile-nav-sub-inner">{children}</div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <div className={`mobile-nav-sub${open ? " is-open" : ""}`}>
+                <div className="mobile-nav-sub-inner">{children}</div>
+            </div>
         </div>
     );
 }
