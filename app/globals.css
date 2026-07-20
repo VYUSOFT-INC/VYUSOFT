@@ -7641,6 +7641,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     background: oklch(4% 0.02 245 / 0.6);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    pointer-events: auto;
 }
 .mobile-nav-panel {
     position: fixed;
@@ -7649,6 +7650,7 @@ a.sector-ledger-link:hover .sector-ledger-ref {
     bottom: 0;
     z-index: 80;
     width: min(420px, 88vw);
+    pointer-events: auto;
     background: oklch(9% 0.03 245 / 0.97);
     backdrop-filter: blur(24px) saturate(140%);
     -webkit-backdrop-filter: blur(24px) saturate(140%);
