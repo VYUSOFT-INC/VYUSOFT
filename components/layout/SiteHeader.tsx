@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ArrowUpRight, ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -319,10 +320,15 @@ export function SiteHeader() {
    shared sheetSlide variant; backdrop fades in behind it. */
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     const [section, setSection] = useState<string | null>(null);
+    const [mounted, setMounted] = useState(false);
     const toggle = (key: string) =>
         setSection((s) => (s === key ? null : key));
 
-    return (
+    useEffect(() => { setMounted(true); }, []);
+
+    if (!mounted) return null;
+
+    return createPortal(
         <>
             <AnimatePresence>
                 {open && (
@@ -495,7 +501,8 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                     </motion.aside>
                 )}
             </AnimatePresence>
-        </>
+        </>,
+        document.body
     );
 }
 
