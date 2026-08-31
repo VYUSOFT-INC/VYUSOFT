@@ -29,11 +29,11 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
     title: {
-        default: "VyuSoft",
-        template: "%s · VyuSoft",
+        default: "Vyusoft",
+        template: "%s · Vyusoft",
     },
     description:
-        "VyuSoft pairs enterprise services with in-house product engineering. AI, cloud, security, data, and full-stack craft for thirty disciplines and seventeen industries.",
+        "Vyusoft pairs enterprise services with in-house product engineering. AI, cloud, security, data, and full-stack craft for thirty disciplines and seventeen industries.",
     icons: { icon: "/vyusoft-icon.png" },
 };
 
